@@ -1,25 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { HelpCircle } from 'lucide-react';
+import { HelpCircle, ArrowLeft } from 'lucide-react';
+import { Button, Card } from '../../components/common';
 
 export default function NotFound() {
   return (
-    <div className="py-20 px-4 text-center max-w-lg mx-auto">
-      <div className="inline-flex p-3 rounded-full bg-[#173F35]/10 text-[#173F35] mb-4">
-        <HelpCircle className="w-10 h-10" />
-      </div>
-      <h1 className="text-4xl font-bold text-[#173F35] mb-2">404</h1>
-      <p className="text-lg font-medium text-[#222824] mb-2">Página no encontrada</p>
-      <p className="text-sm text-gray-500 mb-6">
-        La ruta a la que intentas acceder no existe o ha sido movida.
-      </p>
-      <Link
-        to="/"
-        className="inline-flex items-center justify-center px-6 py-2.5 rounded-lg bg-[#173F35] text-white font-medium text-sm hover:bg-[#173F35]/90 transition-colors"
-      >
-        Ir a la página principal
-      </Link>
+    <div className="py-20 px-4 sm:px-6 lg:px-8 max-w-lg mx-auto text-center">
+      <Card className="p-8 sm:p-12">
+        <div className="inline-flex p-3.5 rounded-full bg-forest-subtle text-forest mb-6">
+          <HelpCircle className="w-10 h-10" />
+        </div>
+        <span className="font-serif text-6xl font-bold text-forest block mb-2">404</span>
+        <h1 className="font-serif text-2xl font-bold text-charcoal mb-3">Página no encontrada</h1>
+        <p className="text-sm text-charcoal-muted leading-relaxed mb-8">
+          La ruta a la que intentas acceder no existe o fue reubicada dentro del sistema.
+        </p>
+        <Link to="/">
+          <Button variant="primary" size="md" leftIcon={<ArrowLeft className="w-4 h-4" />}>
+            Ir al inicio
+          </Button>
+        </Link>
+      </Card>
     </div>
   );
 }
-
