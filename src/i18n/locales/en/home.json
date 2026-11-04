@@ -1,0 +1,20 @@
+{
+  "hero": {
+    "titlePart1": "Discover. Book.",
+    "titlePart2": "Live the experience.",
+    "ctaExplore": "Explore Experiences",
+    "ctaFeatured": "View featured"
+  },
+  "featured": {
+    "title": "Featured Experiences"
+  },
+  "values": {
+    "curationTitle": "Exclusive Curation",
+    "curationDesc": "Each experience is selected under rigorous standards of quality and authenticity.",
+    "bookingTitle": "Simple Booking",
+    "bookingDesc": "Request your preferred date and time slot in simple steps without friction.",
+    "customTitle": "Personalized Service",
+    "customDesc": "Direct communication with operators to confirm every single detail."
+  }
+}
+

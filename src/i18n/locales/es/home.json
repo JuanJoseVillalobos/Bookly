@@ -1,0 +1,20 @@
+{
+  "hero": {
+    "titlePart1": "Descubre. Reserva.",
+    "titlePart2": "Vive la experiencia.",
+    "ctaExplore": "Explorar Experiencias",
+    "ctaFeatured": "Ver destacadas"
+  },
+  "featured": {
+    "title": "Experiencias Destacadas"
+  },
+  "values": {
+    "curationTitle": "Curaduría Exclusiva",
+    "curationDesc": "Cada experiencia es seleccionada con rigurosos estándares de calidad y autenticidad.",
+    "bookingTitle": "Reserva Simple",
+    "bookingDesc": "Solicita tu fecha y horario preferido en sencillos pasos sin fricción.",
+    "customTitle": "Trato Personalizado",
+    "customDesc": "Comunicación directa con los operadores para confirmar cada detalle."
+  }
+}
+

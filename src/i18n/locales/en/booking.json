@@ -1,0 +1,44 @@
+{
+  "request": {
+    "processTag": "Booking Process",
+    "titlePrefix": "Request Booking —",
+    "subtitle": "Fill in your preferences so the operator can confirm availability.",
+    "dateLabel": "Preferred date",
+    "timeLabel": "Preferred time slot",
+    "timePlaceholder": "Select a time slot",
+    "guestsLabel": "Number of guests",
+    "nameLabel": "Full name",
+    "namePlaceholder": "e.g. Sophia Martinez",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "name@email.com",
+    "emailHint": "You will receive your request status here.",
+    "phoneLabel": "Contact phone",
+    "phonePlaceholder": "+54 9 11 0000-0000",
+    "disclaimer": "* This request is subject to confirmation by the operator.",
+    "submitBtn": "Submit Request"
+  },
+  "confirmation": {
+    "title": "Booking Request Received",
+    "description": "Your request has been submitted to the tour operator. We will reach out shortly to confirm availability and coordinate your booking.",
+    "demoReferenceLabel": "Demo reference:",
+    "statusLabel": "Status:",
+    "importantNoteLabel": "Important note:",
+    "importantNoteValue": "This simulation does not constitute a charge or confirmed booking."
+  },
+  "explore": {
+    "tag": "Full Catalog",
+    "title": "Explore Experiences",
+    "subtitle": "Find the ideal adventure for your next trip. Filter by category, location, and budget."
+  },
+  "details": {
+    "tag": "Experience Details",
+    "includesTitle": "What's included in this experience",
+    "includes": [
+      "Certified local professional guide",
+      "Activity insurance included",
+      "Necessary technical equipment",
+      "Regional product tasting"
+    ]
+  }
+}
+
