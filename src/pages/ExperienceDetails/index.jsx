@@ -1,19 +1,25 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Clock, MapPin, Calendar, Sparkles, CheckCircle } from 'lucide-react';
-import { experiences } from '../../data/experiences';
+import { experiences, getLocalizedExperience } from '../../data/experiences';
 import { formatCurrency } from '../../utils/formatters';
 import { Button, Card, Badge } from '../../components/common';
 
 export default function ExperienceDetails() {
   const { id } = useParams();
-  const experience = experiences.find((item) => item.id === id) || experiences[0];
+  const { t, i18n } = useTranslation(['booking', 'common']);
+  const currentLang = (i18n.resolvedLanguage || i18n.language || 'es').startsWith('en') ? 'en' : 'es';
+  const rawExperience = experiences.find((item) => item.id === id) || experiences[0];
+  const experience = getLocalizedExperience(rawExperience, currentLang);
+
+  const includesItems = t('details.includes', { returnObjects: true }) || [];
 
   return (
     <div className="py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-8">
       <Link to="/explore">
         <Button variant="ghost" size="sm" leftIcon={<ArrowLeft className="w-4 h-4" />}>
-          Volver al catálogo
+          {t('actions.backToCatalog')}
         </Button>
       </Link>
 
@@ -41,34 +47,33 @@ export default function ExperienceDetails() {
         </p>
 
         <div className="bg-ivory border border-stone rounded-xl p-6 mb-8">
-          <h2 className="font-serif text-lg font-bold text-forest mb-3">Qué incluye esta experiencia</h2>
+          <h2 className="font-serif text-lg font-bold text-forest mb-3">
+            {t('details.includesTitle')}
+          </h2>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-charcoal-muted">
-            <li className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-forest shrink-0" /> Guía profesional local certificado
-            </li>
-            <li className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-forest shrink-0" /> Seguro de actividad incluido
-            </li>
-            <li className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-forest shrink-0" /> Equipamiento técnico necesario
-            </li>
-            <li className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-forest shrink-0" /> Degustación de productos regionales
-            </li>
+            {Array.isArray(includesItems) && includesItems.map((item, index) => (
+              <li key={index} className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-forest shrink-0" /> {item}
+              </li>
+            ))}
           </ul>
         </div>
 
         <div className="pt-6 border-t border-stone flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
-            <span className="block text-xs uppercase tracking-wider text-charcoal-light">Tarifa estimada</span>
+            <span className="block text-xs uppercase tracking-wider text-charcoal-light">
+              {t('labels.estimatedRate')}
+            </span>
             <span className="font-serif text-2xl sm:text-3xl font-bold text-forest">
-              {formatCurrency(experience.price, experience.currency)}
-              <span className="font-sans text-xs text-charcoal-muted font-normal"> / persona</span>
+              {formatCurrency(experience.price, experience.currency, currentLang)}
+              <span className="font-sans text-xs text-charcoal-muted font-normal">
+                {' '}{t('labels.perPerson')}
+              </span>
             </span>
           </div>
           <Link to={`/booking/${experience.id}`} className="w-full sm:w-auto">
             <Button variant="primary" size="lg" className="w-full sm:w-auto" rightIcon={<Calendar className="w-4 h-4" />}>
-              Solicitar Reserva
+              {t('actions.bookNow')}
             </Button>
           </Link>
         </div>

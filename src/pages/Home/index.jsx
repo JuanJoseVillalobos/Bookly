@@ -1,13 +1,17 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Compass, Sparkles, MapPin, ArrowRight, Clock, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { experiences } from '../../data/experiences';
-import { businessConfig } from '../../config/businessConfig';
+import { experiences, getLocalizedExperience } from '../../data/experiences';
+import { getLocalizedBusinessConfig } from '../../config/businessConfig';
 import { formatCurrency } from '../../utils/formatters';
 import { Button, Card, Badge } from '../../components/common';
 
 export default function Home() {
-  const featuredExperiences = experiences.slice(0, 3);
+  const { t, i18n } = useTranslation(['home', 'common']);
+  const currentLang = (i18n.resolvedLanguage || i18n.language || 'es').startsWith('en') ? 'en' : 'es';
+  const localizedConfig = getLocalizedBusinessConfig(currentLang);
+  const featuredExperiences = experiences.slice(0, 3).map((item) => getLocalizedExperience(item, currentLang));
 
   return (
     <div className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-16 sm:space-y-24">
@@ -15,17 +19,17 @@ export default function Home() {
       <section className="text-center pt-8 pb-12 sm:pt-16 sm:pb-20 max-w-4xl mx-auto">
         <div className="inline-flex items-center gap-2 mb-6">
           <Badge variant="forest" size="md" icon={<Compass className="w-3.5 h-3.5" />}>
-            {businessConfig.tagline}
+            {localizedConfig.tagline}
           </Badge>
         </div>
 
         <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-forest tracking-tight leading-[1.1] mb-6">
-          Descubre. Reserva. <br className="hidden sm:inline" />
-          <span className="italic font-normal">Vive la experiencia.</span>
+          {t('hero.titlePart1')} <br className="hidden sm:inline" />
+          <span className="italic font-normal">{t('hero.titlePart2')}</span>
         </h1>
 
         <p className="max-w-2xl mx-auto text-base sm:text-lg text-charcoal-muted mb-10 font-normal leading-relaxed">
-          {businessConfig.description}
+          {localizedConfig.description}
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -36,12 +40,12 @@ export default function Home() {
               className="w-full sm:w-auto"
               rightIcon={<ArrowRight className="w-4 h-4" />}
             >
-              Explorar Experiencias
+              {t('hero.ctaExplore')}
             </Button>
           </Link>
           <a href="#featured" className="w-full sm:w-auto">
             <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-              Ver destacadas
+              {t('hero.ctaFeatured')}
             </Button>
           </a>
         </div>
@@ -52,15 +56,15 @@ export default function Home() {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-stone pb-6">
           <div>
             <span className="text-xs font-semibold uppercase tracking-wider text-sand-gold-dark">
-              Selección Curada
+              {t('labels.curatedSelection')}
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mt-1">
-              Experiencias Destacadas
+              {t('featured.title')}
             </h2>
           </div>
           <Link to="/explore">
             <Button variant="ghost" size="sm" rightIcon={<ArrowRight className="w-3.5 h-3.5" />}>
-              Ver todo el catálogo
+              {t('actions.exploreAll')}
             </Button>
           </Link>
         </div>
@@ -88,15 +92,19 @@ export default function Home() {
 
               <div className="pt-4 border-t border-stone flex items-center justify-between">
                 <div>
-                  <span className="block text-[11px] uppercase tracking-wider text-charcoal-light">Desde</span>
+                  <span className="block text-[11px] uppercase tracking-wider text-charcoal-light">
+                    {t('labels.from')}
+                  </span>
                   <span className="font-serif text-lg font-bold text-forest">
-                    {formatCurrency(item.price, item.currency)}
-                    <span className="font-sans text-xs text-charcoal-muted font-normal"> / persona</span>
+                    {formatCurrency(item.price, item.currency, currentLang)}
+                    <span className="font-sans text-xs text-charcoal-muted font-normal">
+                      {' '}{t('labels.perPerson')}
+                    </span>
                   </span>
                 </div>
                 <Link to={`/experience/${item.id}`}>
                   <Button variant="outline" size="sm">
-                    Ver detalles
+                    {t('actions.viewDetails')}
                   </Button>
                 </Link>
               </div>
@@ -105,33 +113,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Brand Values / Value Proposition */}
+      {/* Brand Values */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 py-8 border-y border-stone">
         <div className="p-6 rounded-xl bg-white/60 border border-stone">
           <div className="p-2.5 w-fit rounded-lg bg-forest-subtle text-forest mb-4">
             <Sparkles className="w-5 h-5" />
           </div>
-          <h3 className="font-serif text-lg font-bold text-forest mb-2">Curaduría Exclusiva</h3>
+          <h3 className="font-serif text-lg font-bold text-forest mb-2">
+            {t('values.curationTitle')}
+          </h3>
           <p className="text-sm text-charcoal-muted leading-relaxed">
-            Cada experiencia es seleccionada con rigurosos estándares de calidad y autenticidad.
+            {t('values.curationDesc')}
           </p>
         </div>
         <div className="p-6 rounded-xl bg-white/60 border border-stone">
           <div className="p-2.5 w-fit rounded-lg bg-forest-subtle text-forest mb-4">
             <Clock className="w-5 h-5" />
           </div>
-          <h3 className="font-serif text-lg font-bold text-forest mb-2">Reserva Simple</h3>
+          <h3 className="font-serif text-lg font-bold text-forest mb-2">
+            {t('values.bookingTitle')}
+          </h3>
           <p className="text-sm text-charcoal-muted leading-relaxed">
-            Solicita tu fecha y horario preferido en sencillos pasos sin fricción.
+            {t('values.bookingDesc')}
           </p>
         </div>
         <div className="p-6 rounded-xl bg-white/60 border border-stone">
           <div className="p-2.5 w-fit rounded-lg bg-forest-subtle text-forest mb-4">
             <ShieldCheck className="w-5 h-5" />
           </div>
-          <h3 className="font-serif text-lg font-bold text-forest mb-2">Trato Personalizado</h3>
+          <h3 className="font-serif text-lg font-bold text-forest mb-2">
+            {t('values.customTitle')}
+          </h3>
           <p className="text-sm text-charcoal-muted leading-relaxed">
-            Comunicación directa con los operadores para confirmar cada detalle.
+            {t('values.customDesc')}
           </p>
         </div>
       </section>

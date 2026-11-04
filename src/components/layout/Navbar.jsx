@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { businessConfig } from '../../config/businessConfig';
 import { Button } from '../common';
@@ -7,9 +8,10 @@ import LanguageSelector from './LanguageSelector';
 
 /**
  * Navbar component for Bookly.
- * Clean, lightweight, and responsive.
+ * Clean, lightweight, responsive, and fully internationalized.
  */
 export default function Navbar() {
+  const { t } = useTranslation('common');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -19,8 +21,8 @@ export default function Navbar() {
   }, [location.pathname]);
 
   const navLinks = [
-    { to: '/', label: 'Inicio' },
-    { to: '/explore', label: 'Ver catálogo' },
+    { to: '/', label: t('navigation.home') },
+    { to: '/explore', label: t('navigation.explore') },
   ];
 
   return (
@@ -37,33 +39,23 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-            <NavLink
-              to="/"
-              end
-              className={({ isActive }) =>
-                [
-                  'py-1 transition-colors duration-150',
-                  isActive
-                    ? 'text-forest font-semibold border-b-2 border-forest'
-                    : 'text-charcoal-muted hover:text-forest',
-                ].join(' ')
-              }
-            >
-              Inicio
-            </NavLink>
-            <NavLink
-              to="/explore"
-              className={({ isActive }) =>
-                [
-                  'py-1 transition-colors duration-150',
-                  isActive
-                    ? 'text-forest font-semibold border-b-2 border-forest'
-                    : 'text-charcoal-muted hover:text-forest',
-                ].join(' ')
-              }
-            >
-              Ver catálogo
-            </NavLink>
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.to === '/'}
+                className={({ isActive }) =>
+                  [
+                    'py-1 transition-colors duration-150',
+                    isActive
+                      ? 'text-forest font-semibold border-b-2 border-forest'
+                      : 'text-charcoal-muted hover:text-forest',
+                  ].join(' ')
+                }
+              >
+                {link.label}
+              </NavLink>
+            ))}
           </nav>
 
           {/* Desktop Actions */}
@@ -71,7 +63,7 @@ export default function Navbar() {
             <LanguageSelector />
             <Link to="/explore">
               <Button variant="primary" size="md">
-                Reservar
+                {t('navigation.book')}
               </Button>
             </Link>
           </div>
@@ -81,7 +73,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-              aria-label={isMobileMenuOpen ? 'Cerrar navegación' : 'Abrir navegación'}
+              aria-label={isMobileMenuOpen ? t('navigation.closeMenu') : t('navigation.openMenu')}
               aria-expanded={isMobileMenuOpen}
               className="p-2 rounded-lg text-charcoal hover:text-forest hover:bg-stone-light/60 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-forest cursor-pointer"
             >
@@ -97,7 +89,7 @@ export default function Navbar() {
         <div className="md:hidden border-t border-stone bg-ivory/95 backdrop-blur-md px-4 py-5 shadow-lg">
           <div className="max-w-7xl mx-auto space-y-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-sand-gold-dark px-2">
-              Navegación
+              {t('navigation.navTitle')}
             </p>
 
             <nav className="flex flex-col space-y-1">
@@ -122,7 +114,7 @@ export default function Navbar() {
             </nav>
 
             <div className="pt-3 border-t border-stone/80 flex items-center justify-between px-2">
-              <span className="text-xs text-charcoal-muted">Idioma</span>
+              <span className="text-xs text-charcoal-muted">{t('navigation.language')}</span>
               <LanguageSelector variant="segmented" />
             </div>
           </div>

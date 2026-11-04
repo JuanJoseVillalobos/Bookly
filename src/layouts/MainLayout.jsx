@@ -1,5 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Navbar, Footer } from '../components/layout';
 
 /**
@@ -8,6 +9,8 @@ import { Navbar, Footer } from '../components/layout';
  * Integrates the responsive Navbar, accessible main content wrapper, and Footer.
  */
 export default function MainLayout() {
+  const { t } = useTranslation('common');
+
   return (
     <div className="min-h-screen flex flex-col bg-ivory text-charcoal overflow-x-hidden selection:bg-sand-gold/30 selection:text-forest">
       {/* Skip to content link for keyboard and screen reader accessibility */}
@@ -15,7 +18,7 @@ export default function MainLayout() {
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-forest focus:text-ivory focus:rounded-lg focus:shadow-md"
       >
-        Saltar al contenido principal
+        {t('navigation.skipToContent')}
       </a>
 
       {/* Global Navigation Header */}

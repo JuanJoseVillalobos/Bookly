@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Clock, CheckCircle2, ArrowRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { Clock, ArrowRight } from 'lucide-react';
 import { Button, Card, Badge } from '../../components/common';
 
 export default function Confirmation() {
+  const { t } = useTranslation(['booking', 'common']);
   const reference = 'BKL-DEMO-' + Math.floor(100000 + Math.random() * 900000);
 
   return (
@@ -15,36 +17,46 @@ export default function Confirmation() {
 
         <div className="mb-4">
           <Badge variant="pending" size="md">
-            Pendiente de Aprobación
+            {t('status.pendingApproval')}
           </Badge>
         </div>
 
         <h1 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
-          Solicitud de Reserva Recibida
+          {t('confirmation.title')}
         </h1>
 
         <p className="text-sm sm:text-base text-charcoal-muted leading-relaxed mb-6">
-          Tu solicitud ha sido enviada al operador turístico. Nos comunicaremos a la brevedad para confirmar la disponibilidad y coordinar tu reserva.
+          {t('confirmation.description')}
         </p>
 
         <div className="bg-ivory border border-stone rounded-xl p-4 sm:p-6 mb-8 text-left space-y-3">
           <div className="flex justify-between items-center text-xs sm:text-sm">
-            <span className="text-charcoal-muted font-medium">Referencia de demo:</span>
+            <span className="text-charcoal-muted font-medium">
+              {t('confirmation.demoReferenceLabel')}
+            </span>
             <span className="font-mono font-bold text-forest">{reference}</span>
           </div>
           <div className="flex justify-between items-center text-xs sm:text-sm border-t border-stone pt-3">
-            <span className="text-charcoal-muted font-medium">Estado:</span>
-            <span className="font-medium text-amber-800">Pendiente de confirmación</span>
+            <span className="text-charcoal-muted font-medium">
+              {t('confirmation.statusLabel')}
+            </span>
+            <span className="font-medium text-amber-800">
+              {t('status.pendingConfirmation')}
+            </span>
           </div>
           <div className="flex justify-between items-center text-xs sm:text-sm border-t border-stone pt-3">
-            <span className="text-charcoal-muted font-medium">Nota importante:</span>
-            <span className="text-charcoal text-xs">Esta simulación no constituye un cargo ni reserva definitiva.</span>
+            <span className="text-charcoal-muted font-medium">
+              {t('confirmation.importantNoteLabel')}
+            </span>
+            <span className="text-charcoal text-xs">
+              {t('confirmation.importantNoteValue')}
+            </span>
           </div>
         </div>
 
         <Link to="/">
           <Button variant="primary" size="md" rightIcon={<ArrowRight className="w-4 h-4" />}>
-            Volver a la página principal
+            {t('actions.backToHome')}
           </Button>
         </Link>
       </Card>
