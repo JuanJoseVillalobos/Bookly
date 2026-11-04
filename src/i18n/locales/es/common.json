@@ -16,7 +16,7 @@
     "contact": "Contacto",
     "locationDemo": "Noroeste Argentino (Demo)",
     "demoTitle": "Modo Demostración",
-    "demoNotice": "Bookly es una solución frontend adaptable para reservas de experiencias turísticas. No procesa cobros ni reservas comerciales reales.",
+    "demoNotice": "{{businessName}} es una solución frontend adaptable para reservas de experiencias turísticas. No procesa cobros ni reservas comerciales reales.",
     "allRightsReserved": "Todos los derechos reservados.",
     "privacy": "Privacidad (Demo)",
     "terms": "Términos de Servicio"

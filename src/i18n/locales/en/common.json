@@ -16,7 +16,7 @@
     "contact": "Contact",
     "locationDemo": "Northwest Argentina (Demo)",
     "demoTitle": "Demo Mode",
-    "demoNotice": "Bookly is an adaptable frontend solution for booking tourism experiences. It does not process real payments or commercial reservations.",
+    "demoNotice": "{{businessName}} is an adaptable frontend solution for booking tourism experiences. It does not process real payments or commercial reservations.",
     "allRightsReserved": "All rights reserved.",
     "privacy": "Privacy (Demo)",
     "terms": "Terms of Service"
