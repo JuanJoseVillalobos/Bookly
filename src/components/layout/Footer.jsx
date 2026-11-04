@@ -1,18 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Mail, Phone, MapPin, Sparkles } from 'lucide-react';
-import { businessConfig, getLocalizedBusinessConfig } from '../../config/businessConfig';
+import { Mail, Phone, MapPin, Clock, Sparkles } from 'lucide-react';
+import { useBusinessConfig } from '../../hooks/useBusinessConfig';
 import { Badge } from '../common';
 
 /**
  * Footer component for Bookly.
- * Fully internationalized.
+ * Fully internationalized and decoupled from commercial identity via businessConfig.
  */
 export default function Footer() {
-  const { t, i18n } = useTranslation('common');
-  const currentLang = i18n.resolvedLanguage || i18n.language || 'es';
-  const localizedConfig = getLocalizedBusinessConfig(currentLang);
+  const { t } = useTranslation('common');
+  const business = useBusinessConfig();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -23,18 +22,28 @@ export default function Footer() {
           {/* Col 1: Brand & Tagline */}
           <div className="space-y-4">
             <Link to="/" className="inline-flex items-center gap-2 group">
-              <span className="font-serif text-2xl font-bold tracking-tight text-forest group-hover:text-forest-light transition-colors">
-                {businessConfig.name}
-              </span>
-              <Badge variant="forest" size="sm">
-                MVP
-              </Badge>
+              {business.branding?.logoUrl ? (
+                <img
+                  src={business.branding.logoUrl}
+                  alt={business.name}
+                  className="h-8 w-auto object-contain"
+                />
+              ) : (
+                <span className="font-serif text-2xl font-bold tracking-tight text-forest group-hover:text-forest-light transition-colors">
+                  {business.name}
+                </span>
+              )}
+              {business.badge && (
+                <Badge variant="forest" size="sm">
+                  {business.badge}
+                </Badge>
+              )}
             </Link>
             <p className="text-sand-gold-dark text-xs font-semibold uppercase tracking-wider">
-              {localizedConfig.tagline}
+              {business.tagline}
             </p>
             <p className="text-sm text-charcoal-muted leading-relaxed">
-              {localizedConfig.description}
+              {business.description}
             </p>
           </div>
 
@@ -68,28 +77,40 @@ export default function Footer() {
               {t('footer.contact')}
             </h3>
             <ul className="space-y-2.5 text-sm text-charcoal-muted">
-              <li className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-forest shrink-0" />
-                <a
-                  href={`mailto:${businessConfig.contact.email}`}
-                  className="hover:text-forest transition-colors"
-                >
-                  {businessConfig.contact.email}
-                </a>
-              </li>
-              <li className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-forest shrink-0" />
-                <a
-                  href={`tel:${businessConfig.contact.phone.replace(/\s+/g, '')}`}
-                  className="hover:text-forest transition-colors"
-                >
-                  {businessConfig.contact.phone}
-                </a>
-              </li>
-              <li className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-forest shrink-0" />
-                <span>{t('footer.locationDemo')}</span>
-              </li>
+              {business.contact?.email && (
+                <li className="flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-forest shrink-0" />
+                  <a
+                    href={`mailto:${business.contact.email}`}
+                    className="hover:text-forest transition-colors"
+                  >
+                    {business.contact.email}
+                  </a>
+                </li>
+              )}
+              {business.contact?.phone && (
+                <li className="flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-forest shrink-0" />
+                  <a
+                    href={`tel:${business.contact.phone.replace(/\s+/g, '')}`}
+                    className="hover:text-forest transition-colors"
+                  >
+                    {business.contact.phone}
+                  </a>
+                </li>
+              )}
+              {business.contact?.location && (
+                <li className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-forest shrink-0" />
+                  <span>{business.contact.location}</span>
+                </li>
+              )}
+              {business.contact?.hours && (
+                <li className="flex items-center gap-2 text-xs text-charcoal-light">
+                  <Clock className="w-4 h-4 text-forest/70 shrink-0" />
+                  <span>{business.contact.hours}</span>
+                </li>
+              )}
             </ul>
           </div>
 
@@ -100,7 +121,7 @@ export default function Footer() {
               <span className="font-serif text-sm font-bold">{t('footer.demoTitle')}</span>
             </div>
             <p className="text-xs text-charcoal-muted leading-relaxed">
-              {t('footer.demoNotice')}
+              {t('footer.demoNotice', { businessName: business.name })}
             </p>
           </div>
 
@@ -109,7 +130,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-stone flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-charcoal-light">
           <p>
-            © {currentYear} {businessConfig.name}. {t('footer.allRightsReserved')}
+            © {currentYear} {business.name}. {t('footer.allRightsReserved')}
           </p>
           <div className="flex items-center gap-6">
             <span className="hover:text-charcoal cursor-pointer">{t('footer.privacy')}</span>

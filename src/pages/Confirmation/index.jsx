@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Clock, ArrowRight } from 'lucide-react';
 import { Button, Card, Badge } from '../../components/common';
+import { useBusinessConfig } from '../../hooks/useBusinessConfig';
 
 export default function Confirmation() {
   const { t } = useTranslation(['booking', 'common']);
-  const reference = 'BKL-DEMO-' + Math.floor(100000 + Math.random() * 900000);
+  const business = useBusinessConfig();
+  const prefix = business.bookingSettings?.referencePrefix || 'BKL';
+  const reference = useMemo(
+    () => `${prefix}-DEMO-${Math.floor(100000 + Math.random() * 900000)}`,
+    [prefix]
+  );
 
   return (
     <div className="py-16 px-4 sm:px-6 lg:px-8 max-w-2xl mx-auto text-center">
