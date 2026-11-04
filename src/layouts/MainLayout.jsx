@@ -1,46 +1,33 @@
 import React from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import { Navbar, Footer } from '../components/layout';
 
 /**
  * MainLayout
- * Base layout structure for Bookly pages.
- * Incorporates the Premium Editorial Minimalism design system tokens.
+ * Central shared layout structure for Bookly.
+ * Integrates the responsive Navbar, accessible main content wrapper, and Footer.
  */
 export default function MainLayout() {
   return (
-    <div className="min-h-screen flex flex-col bg-ivory text-charcoal">
-      {/* Header / Navigation shell */}
-      <header className="border-b border-stone bg-white/85 backdrop-blur-md sticky top-0 z-50 transition-colors">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3 group">
-            <span className="font-serif text-2xl font-bold tracking-tight text-forest group-hover:text-forest-light transition-colors">
-              Bookly
-            </span>
-          </Link>
-          <nav className="flex items-center gap-6 sm:gap-8 text-sm font-medium text-charcoal-muted">
-            <Link to="/" className="hover:text-forest transition-colors">
-              Inicio
-            </Link>
-            <Link to="/explore" className="hover:text-forest transition-colors">
-              Explorar
-            </Link>
-          </nav>
-        </div>
-      </header>
+    <div className="min-h-screen flex flex-col bg-ivory text-charcoal overflow-x-hidden selection:bg-sand-gold/30 selection:text-forest">
+      {/* Skip to content link for keyboard and screen reader accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-forest focus:text-ivory focus:rounded-lg focus:shadow-md"
+      >
+        Saltar al contenido principal
+      </a>
 
-      {/* Main Content */}
-      <main className="flex-1">
+      {/* Global Navigation Header */}
+      <Navbar />
+
+      {/* Main Page Container */}
+      <main id="main-content" className="flex-1 w-full">
         <Outlet />
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-stone bg-white py-8 text-center text-xs text-charcoal-muted">
-        <div className="max-w-7xl mx-auto px-4 space-y-2">
-          <p className="font-serif text-sm text-forest font-semibold">Bookly</p>
-          <p className="text-sand-gold-dark text-[11px] uppercase tracking-wider">Discover. Book. Experience.</p>
-          <p className="text-charcoal-light pt-2">© {new Date().getFullYear()} Bookly. Todos los derechos reservados.</p>
-        </div>
-      </footer>
+      {/* Global Footer */}
+      <Footer />
     </div>
   );
 }
