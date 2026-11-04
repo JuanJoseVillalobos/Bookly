@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { Compass, Sparkles, MapPin, ArrowRight, Clock, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { experiences, getLocalizedExperience } from '../../data/experiences';
-import { getLocalizedBusinessConfig } from '../../config/businessConfig';
+import { useBusinessConfig } from '../../hooks/useBusinessConfig';
 import { formatCurrency } from '../../utils/formatters';
 import { Button, Card, Badge } from '../../components/common';
 
 export default function Home() {
   const { t, i18n } = useTranslation(['home', 'common']);
   const currentLang = (i18n.resolvedLanguage || i18n.language || 'es').startsWith('en') ? 'en' : 'es';
-  const localizedConfig = getLocalizedBusinessConfig(currentLang);
+  const localizedConfig = useBusinessConfig();
   const featuredExperiences = experiences.slice(0, 3).map((item) => getLocalizedExperience(item, currentLang));
 
   return (

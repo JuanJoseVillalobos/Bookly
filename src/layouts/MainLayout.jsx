@@ -1,15 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Navbar, Footer } from '../components/layout';
+import { useBusinessConfig } from '../hooks/useBusinessConfig';
+import { applyBusinessBranding } from '../config/businessConfig';
 
 /**
  * MainLayout
  * Central shared layout structure for Bookly.
- * Integrates the responsive Navbar, accessible main content wrapper, and Footer.
+ * Integrates the responsive Navbar, accessible main content wrapper, Footer,
+ * and applies centralized branding and document metadata from businessConfig.
  */
 export default function MainLayout() {
   const { t } = useTranslation('common');
+  const business = useBusinessConfig();
+
+  // Apply branding CSS variables and sync document title
+  useEffect(() => {
+    applyBusinessBranding(business);
+    if (typeof document !== 'undefined') {
+      document.title = business.tagline
+        ? `${business.name} — ${business.tagline}`
+        : business.name;
+    }
+  }, [business]);
 
   return (
     <div className="min-h-screen flex flex-col bg-ivory text-charcoal overflow-x-hidden selection:bg-sand-gold/30 selection:text-forest">

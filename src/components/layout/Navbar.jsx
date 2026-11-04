@@ -2,16 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Menu, X, ArrowRight } from 'lucide-react';
-import { businessConfig } from '../../config/businessConfig';
-import { Button } from '../common';
+import { useBusinessConfig } from '../../hooks/useBusinessConfig';
+import { Button, Badge } from '../common';
 import LanguageSelector from './LanguageSelector';
 
 /**
  * Navbar component for Bookly.
- * Clean, lightweight, responsive, and fully internationalized.
+ * Clean, lightweight, responsive, and fully decoupled from commercial identity via businessConfig.
  */
 export default function Navbar() {
   const { t } = useTranslation('common');
+  const business = useBusinessConfig();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -31,10 +32,23 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 sm:h-20">
           
           {/* Logo / Brand */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <span className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-forest group-hover:text-forest-light transition-colors">
-              {businessConfig.name}
-            </span>
+          <Link to="/" className="flex items-center gap-2.5 group">
+            {business.branding?.logoUrl ? (
+              <img
+                src={business.branding.logoUrl}
+                alt={business.name}
+                className="h-8 sm:h-9 w-auto object-contain"
+              />
+            ) : (
+              <span className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-forest group-hover:text-forest-light transition-colors">
+                {business.name}
+              </span>
+            )}
+            {business.badge && (
+              <Badge variant="forest" size="sm" className="hidden sm:inline-flex">
+                {business.badge}
+              </Badge>
+            )}
           </Link>
 
           {/* Desktop Navigation */}
