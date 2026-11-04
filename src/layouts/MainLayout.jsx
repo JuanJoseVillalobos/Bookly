@@ -4,19 +4,26 @@ import { Outlet, Link } from 'react-router-dom';
 /**
  * MainLayout
  * Base layout structure for Bookly pages.
- * Houses the persistent header/navigation, main content area via Outlet, and footer.
+ * Incorporates the Premium Editorial Minimalism design system tokens.
  */
 export default function MainLayout() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#F7F5EF] text-[#222824]">
-      <header className="border-b border-[#E8E5DC] bg-white/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <span className="text-xl font-bold tracking-tight text-[#173F35]">Bookly</span>
+    <div className="min-h-screen flex flex-col bg-ivory text-charcoal">
+      {/* Header / Navigation shell */}
+      <header className="border-b border-stone bg-white/85 backdrop-blur-md sticky top-0 z-50 transition-colors">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-3 group">
+            <span className="font-serif text-2xl font-bold tracking-tight text-forest group-hover:text-forest-light transition-colors">
+              Bookly
+            </span>
           </Link>
-          <nav className="flex items-center gap-6 text-sm font-medium text-gray-600">
-            <Link to="/" className="hover:text-[#173F35] transition-colors">Inicio</Link>
-            <Link to="/explore" className="hover:text-[#173F35] transition-colors">Explorar</Link>
+          <nav className="flex items-center gap-6 sm:gap-8 text-sm font-medium text-charcoal-muted">
+            <Link to="/" className="hover:text-forest transition-colors">
+              Inicio
+            </Link>
+            <Link to="/explore" className="hover:text-forest transition-colors">
+              Explorar
+            </Link>
           </nav>
         </div>
       </header>
@@ -26,13 +33,14 @@ export default function MainLayout() {
         <Outlet />
       </main>
 
-      {/* Footer shell (will be expanded in BKL-04) */}
-      <footer className="border-t border-[#E8E5DC] bg-white py-6 text-center text-xs text-gray-500">
-        <div className="max-w-7xl mx-auto px-4">
-          <p>© {new Date().getFullYear()} Bookly. Discover. Book. Experience.</p>
+      {/* Footer */}
+      <footer className="border-t border-stone bg-white py-8 text-center text-xs text-charcoal-muted">
+        <div className="max-w-7xl mx-auto px-4 space-y-2">
+          <p className="font-serif text-sm text-forest font-semibold">Bookly</p>
+          <p className="text-sand-gold-dark text-[11px] uppercase tracking-wider">Discover. Book. Experience.</p>
+          <p className="text-charcoal-light pt-2">© {new Date().getFullYear()} Bookly. Todos los derechos reservados.</p>
         </div>
       </footer>
     </div>
   );
 }
-
