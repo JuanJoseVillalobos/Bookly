@@ -144,10 +144,10 @@ export default function HeroSection() {
         {/* Business tagline badge */}
         <div className="inline-flex items-center gap-2">
           <Badge
-            variant="gold"
+            variant="dark"
             size="md"
-            icon={<Compass className="w-3.5 h-3.5 text-sand-gold-light" />}
-            className="bg-black/50 text-sand-gold-light border-sand-gold/40 backdrop-blur-md"
+            icon={<Compass className="w-3.5 h-3.5 text-black" />}
+            className="bg-black/50 text-black border-sand-gold/40 backdrop-blur-md"
           >
             {business.tagline || t('hero.badge')}
           </Badge>
