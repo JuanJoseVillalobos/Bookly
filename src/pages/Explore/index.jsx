@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Sparkles, MapPin } from 'lucide-react';
+import { Sparkles, MapPin, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { experiences, getLocalizedExperience } from '../../data/experiences';
 import { formatCurrency } from '../../utils/formatters';
@@ -27,42 +27,60 @@ export default function Explore() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
         {localizedExperiences.map((item) => (
-          <Card key={item.id} hoverEffect className="flex flex-col justify-between p-6 sm:p-7">
-            <div>
-              <div className="flex items-center justify-between text-xs text-charcoal-muted mb-4">
-                <Badge variant="gold" size="sm" icon={<Sparkles className="w-3 h-3" />}>
-                  {item.category}
-                </Badge>
-                <span className="flex items-center gap-1 font-medium">
-                  <MapPin className="w-3.5 h-3.5 text-forest/70" /> {item.location}
-                </span>
+          <Card key={item.id} hoverEffect className="flex flex-col justify-between overflow-hidden group">
+            {item.mainImage && (
+              <div className="relative h-48 w-full overflow-hidden bg-stone-light">
+                <img
+                  src={item.mainImage}
+                  alt={item.imageAlt || item.title}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute top-3 left-3">
+                  <Badge variant="gold" size="sm" icon={<Sparkles className="w-3 h-3" />}>
+                    {item.category}
+                  </Badge>
+                </div>
               </div>
+            )}
 
-              <h2 className="font-serif text-xl sm:text-2xl font-bold text-charcoal mb-2.5">
-                {item.title}
-              </h2>
-              <p className="text-sm text-charcoal-muted leading-relaxed mb-6">
-                {item.shortDescription}
-              </p>
-            </div>
-
-            <div className="pt-4 border-t border-stone flex items-center justify-between">
+            <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between">
               <div>
-                <span className="block text-[11px] uppercase tracking-wider text-charcoal-light">
-                  {t('labels.rate')}
-                </span>
-                <span className="font-serif text-lg font-bold text-forest">
-                  {formatCurrency(item.price, item.currency, currentLang)}
-                  <span className="font-sans text-xs text-charcoal-muted font-normal">
-                    {' '}{t('labels.perPerson')}
+                <div className="flex items-center justify-between text-xs text-charcoal-muted mb-3">
+                  <span className="flex items-center gap-1 font-medium text-forest">
+                    <MapPin className="w-3.5 h-3.5 text-forest/70" /> {item.location}
                   </span>
-                </span>
+                  <span className="flex items-center gap-1 text-charcoal-light">
+                    <Clock className="w-3.5 h-3.5" /> {item.duration}
+                  </span>
+                </div>
+
+                <h2 className="font-serif text-xl sm:text-2xl font-bold text-charcoal mb-2.5">
+                  {item.title}
+                </h2>
+                <p className="text-sm text-charcoal-muted leading-relaxed mb-6 line-clamp-3">
+                  {item.shortDescription}
+                </p>
               </div>
-              <Link to={`/experience/${item.id}`}>
-                <Button variant="outline" size="sm">
-                  {t('actions.viewDetails')}
-                </Button>
-              </Link>
+
+              <div className="pt-4 border-t border-stone flex items-center justify-between">
+                <div>
+                  <span className="block text-[11px] uppercase tracking-wider text-charcoal-light">
+                    {t('labels.rate')}
+                  </span>
+                  <span className="font-serif text-lg font-bold text-forest">
+                    {formatCurrency(item.price, item.currency, currentLang)}
+                    <span className="font-sans text-xs text-charcoal-muted font-normal">
+                      {' '}{t('labels.perPerson')}
+                    </span>
+                  </span>
+                </div>
+                <Link to={`/experience/${item.id}`}>
+                  <Button variant="outline" size="sm">
+                    {t('actions.viewDetails')}
+                  </Button>
+                </Link>
+              </div>
             </div>
           </Card>
         ))}
