@@ -1,20 +1,108 @@
 {
   "hero": {
+    "badge": "Curated Experience Collection",
     "titlePart1": "Discover. Book.",
     "titlePart2": "Live the experience.",
-    "ctaExplore": "Explore Experiences",
-    "ctaFeatured": "View featured"
+    "subtitle": "A thoughtfully curated collection of journeys, expeditions, and unforgettable landscapes across Northwest Argentina. Explore authentic options and submit your booking request simply and directly.",
+    "ctaExplore": "Explore Catalog",
+    "ctaFeatured": "View Featured",
+    "searchPlaceholder": "Search by destination, mountain, or activity...",
+    "searchButton": "Search",
+    "stats": {
+      "curated": "Unique Experiences",
+      "rating": "Average Rating",
+      "direct": "Personalized Care"
+    }
   },
   "featured": {
-    "title": "Featured Experiences"
+    "badge": "Exclusive Selection",
+    "title": "Featured Experiences",
+    "subtitle": "Our most popular journeys chosen by travelers seeking authenticity, stunning nature, and living culture.",
+    "viewAll": "View all experiences",
+    "from": "From",
+    "perPerson": "/ person",
+    "viewDetails": "View details",
+    "bookNow": "Book now",
+    "demoNotice": "Illustrative rate"
   },
-  "values": {
-    "curationTitle": "Exclusive Curation",
-    "curationDesc": "Each experience is selected under rigorous standards of quality and authenticity.",
-    "bookingTitle": "Simple Booking",
-    "bookingDesc": "Request your preferred date and time slot in simple steps without friction.",
-    "customTitle": "Personalized Service",
-    "customDesc": "Direct communication with operators to confirm every single detail."
+  "categories": {
+    "badge": "Variety & Styles",
+    "title": "Explore by Category",
+    "subtitle": "Choose the pace and style of journey that best fits your upcoming trip.",
+    "items": {
+      "adventure": {
+        "title": "Adventure",
+        "description": "High-altitude trekking, ancestral trails, and open-air challenges."
+      },
+      "excursion": {
+        "title": "Excursion",
+        "description": "Guided journeys across endless salt flats and iconic historical landmarks."
+      },
+      "nature": {
+        "title": "Nature",
+        "description": "Immersion in Yungas cloud forests, hidden waterfalls, and native wildlife."
+      },
+      "scenic-views": {
+        "title": "Scenic Views",
+        "description": "Chromatic viewpoints and magical sunsets overlooking multicolored mountains."
+      }
+    },
+    "exploreCategory": "Explore category",
+    "countLabel": "{{count}} experiences"
+  },
+  "benefits": {
+    "badge": "Our Value Proposition",
+    "title": "Why Book with Bookly?",
+    "subtitle": "We build a transparent bridge between passionate travelers and dedicated local hosts.",
+    "items": {
+      "curation": {
+        "title": "Exclusive Curation",
+        "description": "We handpick each experience with strict criteria for authenticity, quality, and safety."
+      },
+      "booking": {
+        "title": "Simple & Flexible Requests",
+        "description": "Request your preferred date, time slot, and party size in an intuitive, friction-free process."
+      },
+      "operators": {
+        "title": "Verified Local Operators",
+        "description": "Connect directly with certified regional guides and hosts without unnecessary intermediaries."
+      },
+      "support": {
+        "title": "Personalized Support",
+        "description": "Clear communication and transparent follow-up before the final confirmation of every booking."
+      }
+    }
+  },
+  "testimonials": {
+    "badge": "Illustrative Content",
+    "title": "Traveler Stories",
+    "subtitle": "Testimonials and experiences reflecting the quality and spirit of our journeys.",
+    "demoAlert": "Demo Notice: The testimonials, photographs, and reviews below are fictional and part of Bookly's visual prototype.",
+    "items": {
+      "testimonial1": {
+        "quote": "The immensity of the Salt Flats at sunrise was a deeply moving experience. The personalized attention and guide recommendations made a genuine difference.",
+        "author": "Lucía Fernández",
+        "location": "Córdoba, Argentina",
+        "experience": "Salt Flats Adventure"
+      },
+      "testimonial2": {
+        "quote": "An extraordinary Andean journey. The booking request process was seamless from the very start, and the local host's warmth exceeded all expectations.",
+        "author": "Markus Schneider",
+        "location": "Berlin, Germany",
+        "experience": "Mountain Escape"
+      },
+      "testimonial3": {
+        "quote": "Watching the sunset over the Hill of Seven Colors with a regional toast was the highlight of our trip. Truly unforgettable.",
+        "author": "Camila & Tomás",
+        "location": "Santiago, Chile",
+        "experience": "Andean Sunset"
+      }
+    }
+  },
+  "cta": {
+    "badge": "Start Your Journey",
+    "title": "Ready for an Unforgettable Experience?",
+    "subtitle": "Browse our full catalog, compare options, and submit your booking request in just a few clicks.",
+    "button": "Explore Full Catalog"
   }
 }
-
