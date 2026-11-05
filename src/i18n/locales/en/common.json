@@ -1,0 +1,52 @@
+{
+  "navigation": {
+    "home": "Home",
+    "explore": "Explore catalog",
+    "book": "Book now",
+    "navTitle": "Navigation",
+    "language": "Language",
+    "skipToContent": "Skip to main content",
+    "closeMenu": "Close navigation",
+    "openMenu": "Open navigation"
+  },
+  "footer": {
+    "exploration": "Exploration",
+    "allExperiences": "Experience Catalog",
+    "featuredExperiences": "Featured Experiences",
+    "contact": "Contact",
+    "locationDemo": "Northwest Argentina (Demo)",
+    "demoTitle": "Demo Mode",
+    "demoNotice": "{{businessName}} is an adaptable frontend solution for booking tourism experiences. It does not process real payments or commercial reservations.",
+    "allRightsReserved": "All rights reserved.",
+    "privacy": "Privacy (Demo)",
+    "terms": "Terms of Service"
+  },
+  "actions": {
+    "viewDetails": "View details",
+    "exploreAll": "View full catalog",
+    "bookNow": "Request Booking",
+    "backToCatalog": "Back to catalog",
+    "backToHome": "Back to home page",
+    "backToExperience": "Back to experience",
+    "simulateConfirmation": "Simulate Confirmation"
+  },
+  "labels": {
+    "from": "From",
+    "rate": "Rate",
+    "estimatedRate": "Estimated rate",
+    "perPerson": "/ person",
+    "featured": "Featured",
+    "curatedSelection": "Curated Selection"
+  },
+  "status": {
+    "pendingApproval": "Pending Approval",
+    "pendingConfirmation": "Pending confirmation"
+  },
+  "notFound": {
+    "title": "404",
+    "subtitle": "Page not found",
+    "description": "The page you are trying to access does not exist or has been relocated.",
+    "action": "Go to home"
+  }
+}
+

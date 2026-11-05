@@ -1,0 +1,52 @@
+{
+  "navigation": {
+    "home": "Inicio",
+    "explore": "Ver catálogo",
+    "book": "Reservar",
+    "navTitle": "Navegación",
+    "language": "Idioma",
+    "skipToContent": "Saltar al contenido principal",
+    "closeMenu": "Cerrar navegación",
+    "openMenu": "Abrir navegación"
+  },
+  "footer": {
+    "exploration": "Exploración",
+    "allExperiences": "Catálogo de Experiencias",
+    "featuredExperiences": "Experiencias Destacadas",
+    "contact": "Contacto",
+    "locationDemo": "Noroeste Argentino (Demo)",
+    "demoTitle": "Modo Demostración",
+    "demoNotice": "{{businessName}} es una solución frontend adaptable para reservas de experiencias turísticas. No procesa cobros ni reservas comerciales reales.",
+    "allRightsReserved": "Todos los derechos reservados.",
+    "privacy": "Privacidad (Demo)",
+    "terms": "Términos de Servicio"
+  },
+  "actions": {
+    "viewDetails": "Ver detalles",
+    "exploreAll": "Ver todo el catálogo",
+    "bookNow": "Solicitar Reserva",
+    "backToCatalog": "Volver al catálogo",
+    "backToHome": "Volver a la página principal",
+    "backToExperience": "Volver a la experiencia",
+    "simulateConfirmation": "Simular Confirmación"
+  },
+  "labels": {
+    "from": "Desde",
+    "rate": "Tarifa",
+    "estimatedRate": "Tarifa estimada",
+    "perPerson": "/ persona",
+    "featured": "Destacado",
+    "curatedSelection": "Selección Curada"
+  },
+  "status": {
+    "pendingApproval": "Pendiente de Aprobación",
+    "pendingConfirmation": "Pendiente de confirmación"
+  },
+  "notFound": {
+    "title": "404",
+    "subtitle": "Página no encontrada",
+    "description": "La ruta a la que intentas acceder no existe o fue reubicada dentro del sistema.",
+    "action": "Ir al inicio"
+  }
+}
+

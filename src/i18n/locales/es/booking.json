@@ -1,0 +1,44 @@
+{
+  "request": {
+    "processTag": "Proceso de Reserva",
+    "titlePrefix": "Solicitar Reserva —",
+    "subtitle": "Completa tus preferencias para que el operador confirme la disponibilidad.",
+    "dateLabel": "Fecha preferida",
+    "timeLabel": "Turno preferido",
+    "timePlaceholder": "Selecciona un horario",
+    "guestsLabel": "Cantidad de huéspedes",
+    "nameLabel": "Nombre completo",
+    "namePlaceholder": "Ej. Sofía Martínez",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "nombre@correo.com",
+    "emailHint": "Recibirás aquí el estado de tu solicitud.",
+    "phoneLabel": "Teléfono de contacto",
+    "phonePlaceholder": "+54 9 11 0000-0000",
+    "disclaimer": "* Esta solicitud está sujeta a confirmación por el operador.",
+    "submitBtn": "Enviar Solicitud"
+  },
+  "confirmation": {
+    "title": "Solicitud de Reserva Recibida",
+    "description": "Tu solicitud ha sido enviada al operador turístico. Nos comunicaremos a la brevedad para confirmar la disponibilidad y coordinar tu reserva.",
+    "demoReferenceLabel": "Referencia de demo:",
+    "statusLabel": "Estado:",
+    "importantNoteLabel": "Nota importante:",
+    "importantNoteValue": "Esta simulación no constituye un cargo ni reserva definitiva."
+  },
+  "explore": {
+    "tag": "Catálogo Completo",
+    "title": "Explorar Experiencias",
+    "subtitle": "Encuentra la aventura ideal para tu próximo viaje. Filtra por categoría, ubicación y presupuesto."
+  },
+  "details": {
+    "tag": "Detalle de Experiencia",
+    "includesTitle": "Qué incluye esta experiencia",
+    "includes": [
+      "Guía profesional local certificado",
+      "Seguro de actividad incluido",
+      "Equipamiento técnico necesario",
+      "Degustación de productos regionales"
+    ]
+  }
+}
+
