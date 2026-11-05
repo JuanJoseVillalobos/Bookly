@@ -28,7 +28,23 @@
   "explore": {
     "tag": "Full Catalog",
     "title": "Explore Experiences",
-    "subtitle": "Find the ideal adventure for your next trip. Filter by category, location, and budget."
+    "subtitle": "Find the ideal journey for your upcoming trip. A curated collection of expeditions, Andean treks, and iconic landscapes.",
+    "counter": "{{count}} experiences available",
+    "filterAll": "All",
+    "card": {
+      "from": "From",
+      "perPerson": "/ person",
+      "viewDetails": "View details",
+      "bookNow": "Book now",
+      "demoNotice": "Illustrative demo rate"
+    },
+    "empty": {
+      "title": "No experiences found",
+      "description": "There are no experiences matching your selected filter at this moment.",
+      "action": "View all experiences",
+      "backHome": "Back to home"
+    },
+    "loading": "Loading experiences catalog..."
   },
   "details": {
     "tag": "Experience Details",
@@ -41,4 +57,3 @@
     ]
   }
 }
-

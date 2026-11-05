@@ -28,7 +28,23 @@
   "explore": {
     "tag": "Catálogo Completo",
     "title": "Explorar Experiencias",
-    "subtitle": "Encuentra la aventura ideal para tu próximo viaje. Filtra por categoría, ubicación y presupuesto."
+    "subtitle": "Encuentra la travesía ideal para tu próximo viaje. Una colección curada de expediciones, caminatas andinas y paisajes emblemáticos.",
+    "counter": "{{count}} experiencias disponibles",
+    "filterAll": "Todas",
+    "card": {
+      "from": "Desde",
+      "perPerson": "/ persona",
+      "viewDetails": "Ver detalles",
+      "bookNow": "Reservar",
+      "demoNotice": "Tarifa ilustrativa de demostración"
+    },
+    "empty": {
+      "title": "No se encontraron experiencias",
+      "description": "No existen experiencias que coincidan con el filtro seleccionado en este momento.",
+      "action": "Ver todo el catálogo",
+      "backHome": "Volver al inicio"
+    },
+    "loading": "Cargando catálogo de experiencias..."
   },
   "details": {
     "tag": "Detalle de Experiencia",
@@ -41,4 +57,3 @@
     ]
   }
 }
-
