@@ -75,6 +75,9 @@
   },
   "testimonials": {
     "badge": "Contenido Ilustrativo",
+    "headingMain": "Reseñas de personas reales",
+    "trustScore": "Basado en más de 3.980 reseñas verificadas",
+    "sidebarTitle": "Lo que dicen nuestros viajeros",
     "title": "Historias de Viajeros",
     "subtitle": "Testimonios y vivencias representativas de la calidad de nuestras experiencias.",
     "demoAlert": "Aviso de Demostración: Los testimonios, fotografías y reseñas a continuación son ficticios y forman parte del prototipo visual de Bookly.",
@@ -83,19 +86,36 @@
         "quote": "La inmensidad de las Salinas Grandes al amanecer fue una experiencia conmovedora. La atención personalizada y las recomendaciones del guía marcaron una verdadera diferencia.",
         "author": "Lucía Fernández",
         "location": "Córdoba, Argentina",
-        "experience": "Salt Flats Adventure"
+        "experience": "Salt Flats Adventure",
+        "timeAgo": "hace 1 día"
       },
       "testimonial2": {
         "quote": "Una travesía andina extraordinaria. El proceso de solicitud fue claro y fluido desde el primer momento, y la calidez del anfitrión superó todas las expectativas.",
         "author": "Markus Schneider",
         "location": "Berlín, Alemania",
-        "experience": "Mountain Escape"
+        "experience": "Mountain Escape",
+        "timeAgo": "hace 3 días"
       },
       "testimonial3": {
         "quote": "Ver ponerse el sol sobre el Cerro de los Siete Colores con un brindis regional fue el punto culminante de nuestro viaje. Absolutamente inolvidable.",
-        "author": "Camilo Sanchez",
+        "author": "Camila & Tomás",
         "location": "Santiago, Chile",
-        "experience": "Andean Sunset"
+        "experience": "Andean Sunset",
+        "timeAgo": "hace 5 días"
+      },
+      "testimonial4": {
+        "quote": "Las cascadas ocultas en las Yungas parecían sacadas de un cuento. La desconexión con la naturaleza y el profesionalismo del guía fueron insuperables.",
+        "author": "Mateo Rossi",
+        "location": "Milán, Italia",
+        "experience": "Hidden Waterfalls",
+        "timeAgo": "hace 1 semana"
+      },
+      "testimonial5": {
+        "quote": "Organizar una salida personalizada fue fácil y sin complicaciones. Todo salió exactamente como lo acordamos, con un nivel de detalle impecable.",
+        "author": "Elena Valenzuela",
+        "location": "Mendoza, Argentina",
+        "experience": "Mountain Escape",
+        "timeAgo": "hace 2 semanas"
       }
     }
   },

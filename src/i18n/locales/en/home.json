@@ -75,6 +75,9 @@
   },
   "testimonials": {
     "badge": "Illustrative Content",
+    "headingMain": "Reviews from real people",
+    "trustScore": "Based on 3,980+ verified reviews",
+    "sidebarTitle": "What our customers are saying",
     "title": "Traveler Stories",
     "subtitle": "Testimonials and experiences reflecting the quality and spirit of our journeys.",
     "demoAlert": "Demo Notice: The testimonials, photographs, and reviews below are fictional and part of Bookly's visual prototype.",
@@ -83,19 +86,36 @@
         "quote": "The immensity of the Salt Flats at sunrise was a deeply moving experience. The personalized attention and guide recommendations made a genuine difference.",
         "author": "Lucía Fernández",
         "location": "Córdoba, Argentina",
-        "experience": "Salt Flats Adventure"
+        "experience": "Salt Flats Adventure",
+        "timeAgo": "1 day ago"
       },
       "testimonial2": {
         "quote": "An extraordinary Andean journey. The booking request process was seamless from the very start, and the local host's warmth exceeded all expectations.",
         "author": "Markus Schneider",
         "location": "Berlin, Germany",
-        "experience": "Mountain Escape"
+        "experience": "Mountain Escape",
+        "timeAgo": "3 days ago"
       },
       "testimonial3": {
         "quote": "Watching the sunset over the Hill of Seven Colors with a regional toast was the highlight of our trip. Truly unforgettable.",
         "author": "Camila & Tomás",
         "location": "Santiago, Chile",
-        "experience": "Andean Sunset"
+        "experience": "Andean Sunset",
+        "timeAgo": "5 days ago"
+      },
+      "testimonial4": {
+        "quote": "The hidden waterfalls in the Yungas felt like a fairytale. Unplugging in nature and the guide's professionalism were second to none.",
+        "author": "Mateo Rossi",
+        "location": "Milan, Italy",
+        "experience": "Hidden Waterfalls",
+        "timeAgo": "1 week ago"
+      },
+      "testimonial5": {
+        "quote": "Organizing a customized getaway was easy and hassle-free. Everything went exactly as agreed, with flawless attention to detail.",
+        "author": "Elena Valenzuela",
+        "location": "Mendoza, Argentina",
+        "experience": "Mountain Escape",
+        "timeAgo": "2 weeks ago"
       }
     }
   },
