@@ -22,7 +22,7 @@ import {
 export default function Booking() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { i18n } = useTranslation('booking');
+  const { t, i18n } = useTranslation('booking');
   const currentLang = (i18n.resolvedLanguage || i18n.language || 'es').startsWith('en') ? 'en' : 'es';
 
   const experience = getExperienceById(id, currentLang);
@@ -35,6 +35,7 @@ export default function Booking() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [notes, setNotes] = useState('');
+  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
 
   // Handle Non-Existent Experience Identifier
   if (!experience) {
@@ -44,6 +45,10 @@ export default function Booking() {
   // Handle Form Submission (Simulation)
   const handleSubmit = (e) => {
     e.preventDefault();
+    setHasAttemptedSubmit(true);
+    if (!date || !timeSlot) {
+      return;
+    }
     // Navigate to confirmation page
     navigate('/confirmation');
   };
@@ -61,9 +66,14 @@ export default function Booking() {
             experience={experience}
             currentLang={currentLang}
             date={date}
-            setDate={setDate}
+            setDate={(newDate) => {
+              setDate(newDate);
+              // Clear timeSlotError on date change
+              if (!newDate) setTimeSlot('');
+            }}
             timeSlot={timeSlot}
             setTimeSlot={setTimeSlot}
+            timeSlotError={hasAttemptedSubmit && !timeSlot ? t('request.timeSlotRequired') : ''}
             guests={guests}
             setGuests={setGuests}
             fullName={fullName}
