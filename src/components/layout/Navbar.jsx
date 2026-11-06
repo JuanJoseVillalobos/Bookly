@@ -14,6 +14,7 @@ export default function Navbar() {
   const { t } = useTranslation('common');
   const business = useBusinessConfig();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
   // Close mobile menu on route change
@@ -21,13 +22,30 @@ export default function Navbar() {
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
 
+  // Monitor vertical scroll position to apply dynamic elevation and styling
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 8);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const navLinks = [
     { to: '/', label: t('navigation.home') },
     { to: '/explore', label: t('navigation.explore') },
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-ivory/95 backdrop-blur-md border-b border-stone transition-colors">
+    <header
+      className={`sticky top-0 z-40 w-full transition-all duration-200 ${
+        isScrolled
+          ? 'bg-ivory/98 backdrop-blur-md border-b border-stone-dark/80 shadow-xs'
+          : 'bg-ivory/95 backdrop-blur-md border-b border-stone shadow-none'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           
@@ -100,7 +118,7 @@ export default function Navbar() {
 
       {/* Simple Mobile Dropdown Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-stone bg-ivory/95 backdrop-blur-md px-4 py-5 shadow-lg">
+        <div className="md:hidden border-t border-stone bg-ivory/95 backdrop-blur-md px-4 py-5 shadow-lg max-h-[calc(100vh-5rem)] overflow-y-auto">
           <div className="max-w-7xl mx-auto space-y-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-sand-gold-dark px-2">
               {t('navigation.navTitle')}

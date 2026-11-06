@@ -44,7 +44,10 @@ export default function Step4Requirements({
                   : 'text-charcoal-muted'
               }`}
             >
-              {t('wizard.charactersCount', { count: currentLength, max: MAX_CHARS })}
+              {t('wizard.charactersCount', '{{count}} / {{max}} caracteres', {
+                count: currentLength,
+                max: MAX_CHARS,
+              })}
             </span>
           </div>
 

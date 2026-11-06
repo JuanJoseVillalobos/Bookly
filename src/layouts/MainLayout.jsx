@@ -26,7 +26,7 @@ export default function MainLayout() {
   }, [business]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-ivory text-charcoal overflow-x-hidden selection:bg-sand-gold/30 selection:text-forest">
+    <div className="min-h-screen flex flex-col bg-ivory text-charcoal overflow-x-clip selection:bg-sand-gold/30 selection:text-forest">
       {/* Skip to content link for keyboard and screen reader accessibility */}
       <a
         href="#main-content"
