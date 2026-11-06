@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getExperienceById } from '../../data/experiences';
+import { getExperienceById, getTimeSlotsForDate } from '../../data/experiences';
 import {
   BookingNotFound,
   BookingHeader,
@@ -11,6 +11,8 @@ import {
   BookingStepsNav,
 } from './components';
 import { validateBookingForm } from '../../utils/validation.js';
+import { calculateBookingPrice } from '../../utils/pricing.js';
+import { createBookingRequest } from '../../services/bookingService.js';
 
 /**
  * Booking Page
@@ -49,6 +51,7 @@ export default function Booking() {
   const [errors, setErrors] = useState({});
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionError, setSubmissionError] = useState('');
 
   // Handle Non-Existent Experience Identifier
   if (!experience) {
@@ -70,6 +73,7 @@ export default function Booking() {
   const handleProceedToReview = (e) => {
     if (e) e.preventDefault();
     setHasAttemptedSubmit(true);
+    setSubmissionError('');
 
     const validation = validateBookingForm({
       date,
@@ -97,12 +101,16 @@ export default function Booking() {
 
   // Step 2 -> Step 1: Return to edit keeping all inputs intact
   const handleBackToForm = () => {
+    setSubmissionError('');
     setCurrentStep('form');
     window.scrollTo({ top: 120, behavior: 'smooth' });
   };
 
-  // Step 2 -> Submit: Final validation and simulate submission
+  // Step 2 -> Submit: Final validation, local persistence, anti-duplicate check & transition
   const handleConfirmSubmit = () => {
+    // Prevent accidental duplicate submissions from multiple rapid clicks
+    if (isSubmitting) return;
+
     // Re-validate to guarantee absolute consistency
     const validation = validateBookingForm({
       date,
@@ -122,12 +130,63 @@ export default function Booking() {
       return;
     }
 
+    setSubmissionError('');
     setIsSubmitting(true);
-    // Simulate brief submission dispatch and transition to confirmation
-    setTimeout(() => {
+
+    try {
+      // 1. Centralized pricing calculation
+      const pricing = calculateBookingPrice({
+        unitPrice: experience.price || 0,
+        guestCount: guests,
+        currency: experience.currency || 'USD',
+      });
+
+      // 2. Resolve descriptive time slot label
+      const slots = getTimeSlotsForDate(experience, date, currentLang);
+      const matchedSlot = slots.find((s) => s.value === timeSlot);
+      const timeSlotLabel = matchedSlot?.label || (timeSlot ? `${timeSlot} hs` : '');
+
+      // 3. Create and persist booking request via local service
+      const booking = createBookingRequest({
+        experienceId: experience.id,
+        experienceName: experience.title,
+        experienceTitle: experience.title,
+        experienceImage: experience.mainImage,
+        experienceLocation: experience.locationFull || experience.location,
+        experienceCategory: experience.category,
+        requestedDate: date,
+        requestedTime: timeSlot,
+        requestedTimeLabel: timeSlotLabel,
+        guestQuantity: guests,
+        customerInformation: {
+          fullName,
+          email,
+          phone,
+          notes,
+        },
+        unitPrice: pricing.unitPrice,
+        currency: pricing.currency,
+        estimatedTotal: pricing.estimatedTotal,
+      });
+
+      // 4. Simulate network latency (600ms) with visual processing feedback before navigating
+      setTimeout(() => {
+        setIsSubmitting(false);
+        navigate(`/confirmation?id=${encodeURIComponent(booking.id)}`, {
+          state: { bookingId: booking.id, booking },
+          replace: true,
+        });
+      }, 600);
+    } catch (err) {
+      console.error('[Booking] Submission error:', err);
       setIsSubmitting(false);
-      navigate('/confirmation');
-    }, 400);
+      setSubmissionError(
+        t(
+          'request.errors.persistenceFailed',
+          'No se pudo registrar la solicitud debido a un inconveniente con el almacenamiento local. Por favor verifica el espacio e intenta nuevamente.'
+        )
+      );
+    }
   };
 
   return (
@@ -206,6 +265,7 @@ export default function Booking() {
               onBackToEdit={handleBackToForm}
               onConfirmSubmit={handleConfirmSubmit}
               isSubmitting={isSubmitting}
+              submissionError={submissionError}
             />
           )}
         </div>
