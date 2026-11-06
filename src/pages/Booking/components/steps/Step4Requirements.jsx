@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { MessageSquare, ArrowLeft, ArrowRight, Info, Sparkles } from 'lucide-react';
+import { MessageSquare, ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
 import { Button, Card } from '../../../../components/common';
 
 /**

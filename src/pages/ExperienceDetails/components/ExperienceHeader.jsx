@@ -45,7 +45,7 @@ export default function ExperienceHeader({ experience, currentLang }) {
             {experience.category}
           </Badge>
           {experience.featured && (
-            <Badge variant="green" size="sm">
+            <Badge variant="forest" size="sm">
               {t('common:labels.featured')}
             </Badge>
           )}

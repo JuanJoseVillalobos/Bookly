@@ -8,9 +8,11 @@
     "ctaFeatured": "View Featured",
     "searchPlaceholder": "Search by destination, mountain, or activity...",
     "searchButton": "Search",
+    "mobileImageAlt": "Andean landscape in Northwest Argentina",
     "stats": {
       "curated": "Unique Experiences",
       "rating": "Average Rating",
+      "directTitle": "Direct & Safe",
       "direct": "Personalized Care"
     }
   },
@@ -80,6 +82,9 @@
     "sidebarTitle": "What our customers are saying",
     "title": "Traveler Stories",
     "subtitle": "Testimonials and experiences reflecting the quality and spirit of our journeys.",
+    "prevAria": "Previous review",
+    "nextAria": "Next review",
+    "starsAria": "5 out of 5 stars",
     "demoAlert": "Demo Notice: The testimonials, photographs, and reviews below are fictional and part of Bookly's visual prototype.",
     "items": {
       "testimonial1": {

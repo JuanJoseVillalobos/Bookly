@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Minus, Plus, Users, Sparkles, AlertCircle } from 'lucide-react';
+import { Minus, Plus, AlertCircle } from 'lucide-react';
 import { formatCurrency } from '../../utils/formatters';
 import { calculateBookingPrice } from '../../utils/pricing';
 

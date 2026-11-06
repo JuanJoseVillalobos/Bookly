@@ -126,7 +126,7 @@ export default function HeroSection() {
           /* Mobile only: lightweight static image (~41KB). 0 video bytes downloaded */
           <img
             src={CLOUDINARY_MOBILE_IMG_URL}
-            alt="Paisaje andino de Jujuy"
+            alt={t('hero.mobileImageAlt', 'Paisaje andino del Noroeste Argentino')}
             className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             loading="eager"
           />
@@ -146,8 +146,7 @@ export default function HeroSection() {
           <Badge
             variant="dark"
             size="md"
-            icon={<Compass className="w-3.5 h-3.5 text-black" />}
-            className="bg-black/50 text-black border-sand-gold/40 backdrop-blur-md"
+            icon={<Compass className="w-3.5 h-3.5 text-sand-gold-light" />}
           >
             {business.tagline || t('hero.badge')}
           </Badge>
@@ -181,6 +180,7 @@ export default function HeroSection() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={t('hero.searchPlaceholder')}
+                aria-label={t('hero.searchPlaceholder')}
                 className="w-full text-sm text-charcoal placeholder:text-charcoal-light bg-transparent border-0 focus:outline-none"
               />
             </div>
@@ -246,7 +246,9 @@ export default function HeroSection() {
               <ShieldCheck className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-base font-serif font-bold text-ivory">Direct & Safe</p>
+              <p className="text-base font-serif font-bold text-ivory">
+                {t('hero.stats.directTitle', 'Directo y Seguro')}
+              </p>
               <p className="text-xs text-ivory/80">{t('hero.stats.direct')}</p>
             </div>
           </div>

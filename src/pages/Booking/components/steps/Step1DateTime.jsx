@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Calendar, Clock, ArrowRight, ArrowLeft, CheckCircle2, AlertCircle } from 'lucide-react';
+import { ArrowRight, ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { DatePicker, TimeSlotSelector, Button, Card } from '../../../../components/common';
 import { formatDateByLocale } from '../../../../utils/formatters';
 import { getTimeSlotsForDate } from '../../../../data/experiences';

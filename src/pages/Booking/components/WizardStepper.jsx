@@ -36,7 +36,7 @@ export default function WizardStepper({ currentStep = 1, onStepClick }) {
       </div>
 
       {/* Stepper Track & Circles */}
-      <nav aria-label="Progreso del formulario de reserva" className="relative">
+      <nav aria-label={t('wizard.stepperAria', 'Progreso del formulario de reserva')} className="relative">
         {/* Horizontal Connecting Progress Line */}
         <div
           className="absolute top-4 sm:top-5 left-4 sm:left-8 right-4 sm:right-8 h-0.5 bg-stone -translate-y-1/2 z-0"
@@ -56,7 +56,6 @@ export default function WizardStepper({ currentStep = 1, onStepClick }) {
           {steps.map((step) => {
             const isCompleted = step.id < currentStep;
             const isActive = step.id === currentStep;
-            const isUpcoming = step.id > currentStep;
             const isClickable = isCompleted && onStepClick;
 
             return (

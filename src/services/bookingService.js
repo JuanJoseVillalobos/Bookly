@@ -14,6 +14,24 @@ const LATEST_BOOKING_KEY = 'bookly_latest_booking_id';
 
 // Submission throttling window to prevent rapid accidental duplicates (5 seconds)
 const DUPLICATE_SUBMISSION_WINDOW_MS = 5000;
+const MAX_STORED_BOOKINGS = 50;
+
+/**
+ * Sanitizes plain text user input to prevent HTML/script injection and control characters
+ * before persisting to localStorage.
+ *
+ * @param {string} value
+ * @param {number} [maxLength=500]
+ * @returns {string}
+ */
+export function sanitizeTextInput(value, maxLength = 500) {
+  if (!value || typeof value !== 'string') return '';
+  return value
+    .replace(/[<>]/g, '')
+    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '')
+    .trim()
+    .slice(0, maxLength);
+}
 
 /**
  * Generates a unique, human-readable booking reference code.
@@ -205,10 +223,10 @@ export function createBookingRequest(data) {
     requestedTimeLabel: data.requestedTimeLabel || (requestedTime ? `${requestedTime} hs` : ''),
     guestQuantity: Number(guestQuantity),
     customerInformation: {
-      fullName: customerInformation.fullName.trim(),
-      email: normalizedEmail,
-      phone: customerInformation.phone.trim(),
-      notes: customerInformation.notes ? customerInformation.notes.trim() : '',
+      fullName: sanitizeTextInput(customerInformation.fullName, 120),
+      email: sanitizeTextInput(normalizedEmail, 150),
+      phone: sanitizeTextInput(customerInformation.phone, 30),
+      notes: customerInformation.notes ? sanitizeTextInput(customerInformation.notes, 500) : '',
     },
     unitPrice: Number(unitPrice),
     currency: data.currency || businessConfig?.currency?.default || 'USD',
@@ -224,7 +242,7 @@ export function createBookingRequest(data) {
   }
 
   try {
-    const updatedBookings = [...existingBookings, bookingRequest];
+    const updatedBookings = [...existingBookings, bookingRequest].slice(-MAX_STORED_BOOKINGS);
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedBookings));
     window.localStorage.setItem(LATEST_BOOKING_KEY, bookingRequest.id);
   } catch (storageError) {

@@ -18,6 +18,7 @@ export default function Badge({
     forest: 'bg-forest-subtle text-forest border border-forest/15',
     gold: 'bg-sand-gold-subtle text-sand-gold-dark border border-sand-gold/25',
     stone: 'bg-stone-light text-charcoal-muted border border-stone',
+    dark: 'bg-black/50 text-ivory border border-sand-gold/40 backdrop-blur-md',
     pending: 'bg-amber-50 text-amber-800 border border-amber-200',
     confirmed: 'bg-emerald-50 text-emerald-800 border border-emerald-200',
   };

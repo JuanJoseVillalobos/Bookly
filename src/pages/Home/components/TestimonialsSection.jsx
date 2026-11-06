@@ -111,7 +111,7 @@ export default function TestimonialsSection() {
               onClick={() => scrollByDirection(-1)}
               disabled={scrollProgress <= 0.05}
               className="w-10 h-10 rounded-full border border-stone bg-white flex items-center justify-center text-charcoal hover:bg-stone-light hover:border-forest/40 disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer shadow-xs active:scale-95"
-              aria-label="Anterior testimonio"
+              aria-label={t('testimonials.prevAria', 'Anterior testimonio')}
             >
               <ArrowLeft className="w-4 h-4" />
             </button>
@@ -132,7 +132,7 @@ export default function TestimonialsSection() {
               onClick={() => scrollByDirection(1)}
               disabled={scrollProgress >= 0.95}
               className="w-10 h-10 rounded-full border border-stone bg-white flex items-center justify-center text-charcoal hover:bg-stone-light hover:border-forest/40 disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer shadow-xs active:scale-95"
-              aria-label="Siguiente testimonio"
+              aria-label={t('testimonials.nextAria', 'Siguiente testimonio')}
             >
               <ArrowRight className="w-4 h-4" />
             </button>
@@ -165,7 +165,10 @@ export default function TestimonialsSection() {
                     </p>
 
                     {/* 5-star Trustpilot-styled green rating */}
-                    <div className="flex items-center gap-1 text-emerald-500 pt-4" aria-label="5 de 5 estrellas">
+                    <div
+                      className="flex items-center gap-1 text-emerald-500 pt-4"
+                      aria-label={t('testimonials.starsAria', '5 de 5 estrellas')}
+                    >
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} className="w-4 h-4 fill-emerald-500 text-emerald-500" />
                       ))}

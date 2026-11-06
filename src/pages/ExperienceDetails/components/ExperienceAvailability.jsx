@@ -24,7 +24,7 @@ export default function ExperienceAvailability({ experience, currentLang }) {
         <h2 className="font-serif text-2xl font-bold text-forest">
           {t('details.availabilityTitle')}
         </h2>
-        <Badge variant="blue" size="sm">
+        <Badge variant="stone" size="sm">
           Demo
         </Badge>
       </div>
