@@ -232,3 +232,64 @@ export function validateBookingForm({
     errors,
   };
 }
+
+/**
+ * Validates a single step in the multi-step booking wizard.
+ *
+ * @param {number} step - Step number (1, 2, 3, 4, 5)
+ * @param {Object} formData - Form values
+ * @param {Object} experience - Experience data
+ * @param {string} [currentLang='es'] - Active language
+ * @param {Function} [t] - Translation function
+ * @returns {{ isValid: boolean, errors: Record<string, string> }}
+ */
+export function validateWizardStep(
+  step,
+  formData,
+  experience,
+  currentLang = 'es',
+  t = (key, fallback) => (typeof fallback === 'string' ? fallback : key)
+) {
+  const errors = {};
+
+  if (step === 1) {
+    const dateError = validateBookingDate(formData.date, experience, t);
+    if (dateError) errors.date = dateError;
+
+    const timeSlotError = validateBookingTimeSlot(formData.timeSlot, formData.date, experience, currentLang, t);
+    if (timeSlotError) errors.timeSlot = timeSlotError;
+  } else if (step === 2) {
+    const guestsError = validateBookingGuests(formData.guests, experience, t);
+    if (guestsError) errors.guests = guestsError;
+  } else if (step === 3) {
+    const nameError = validateFullName(formData.fullName, t);
+    if (nameError) errors.fullName = nameError;
+
+    const emailError = validateEmail(formData.email, t);
+    if (emailError) errors.email = emailError;
+
+    const phoneError = validatePhone(formData.phone, t);
+    if (phoneError) errors.phone = phoneError;
+  } else if (step === 4) {
+    if (formData.notes && formData.notes.length > 500) {
+      errors.notes = t('wizard.charactersLimitReached', 'Límite máximo de 500 caracteres alcanzado');
+    }
+  } else if (step === 5) {
+    return validateBookingForm({
+      date: formData.date,
+      timeSlot: formData.timeSlot,
+      guests: formData.guests,
+      fullName: formData.fullName,
+      email: formData.email,
+      phone: formData.phone,
+      experience,
+      currentLang,
+      t,
+    });
+  }
+
+  return {
+    isValid: Object.keys(errors).length === 0,
+    errors,
+  };
+}
