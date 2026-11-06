@@ -129,12 +129,31 @@
     "backToCatalog": "Volver al catálogo"
   },
   "confirmation": {
-    "title": "Solicitud de Reserva Recibida",
+    "title": "Solicitud de Reserva Registrada",
     "description": "Tu solicitud ha sido enviada al operador turístico. Nos comunicaremos a la brevedad para confirmar la disponibilidad y coordinar tu reserva.",
-    "demoReferenceLabel": "Referencia de demo:",
+    "statusBadge": "Pendiente de Aprobación",
+    "referenceLabel": "Código de Solicitud:",
     "statusLabel": "Estado:",
-    "importantNoteLabel": "Nota importante:",
-    "importantNoteValue": "Esta simulación no constituye un cargo ni reserva definitiva."
+    "statusValue": "Pendiente de aprobación",
+    "statusExplanation": "Esta solicitud todavía no representa una reserva confirmada. El operador turístico debe revisar y aprobar la solicitud formalmente según la disponibilidad.",
+    "trustNote": "No se ha realizado ningún cobro bancario ni cargo automático en esta instancia.",
+    "experienceSectionTitle": "Detalle de la Experiencia",
+    "scheduleSectionTitle": "Fecha y Horario Solicitados",
+    "customerSectionTitle": "Datos del Solicitante",
+    "pricingSectionTitle": "Tarifa y Total Estimado",
+    "unitRateLabel": "Tarifa por persona:",
+    "totalLabel": "Total estimado:",
+    "notesLabel": "Requerimientos especiales:",
+    "noNotes": "Sin requerimientos adicionales informados.",
+    "ctaCatalog": "Explorar más experiencias",
+    "ctaExperience": "Ver experiencia",
+    "copyReference": "Copiar código",
+    "referenceCopied": "¡Copiado!",
+    "empty": {
+      "title": "No se encontró ninguna solicitud activa",
+      "description": "No se ha detectado ninguna solicitud de reserva reciente en este navegador. Para solicitar una reserva, por favor selecciona una experiencia de nuestro catálogo.",
+      "action": "Explorar catálogo de experiencias"
+    }
   },
   "explore": {
     "tag": "Catálogo Completo",

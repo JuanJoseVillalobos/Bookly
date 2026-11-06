@@ -129,12 +129,31 @@
     "backToCatalog": "Back to catalog"
   },
   "confirmation": {
-    "title": "Booking Request Received",
-    "description": "Your request has been submitted to the tour operator. We will reach out shortly to confirm availability and coordinate your booking.",
-    "demoReferenceLabel": "Demo reference:",
+    "title": "Booking Request Registered",
+    "description": "Your request has been sent to the tour operator. We will reach out shortly to confirm availability and coordinate your booking.",
+    "statusBadge": "Pending Approval",
+    "referenceLabel": "Request Code:",
     "statusLabel": "Status:",
-    "importantNoteLabel": "Important note:",
-    "importantNoteValue": "This simulation does not constitute a charge or confirmed booking."
+    "statusValue": "Pending approval",
+    "statusExplanation": "This request does not constitute a confirmed booking yet. The tour operator must review spot availability and formally approve the request.",
+    "trustNote": "No credit card charges or automatic payments have been processed at this stage.",
+    "experienceSectionTitle": "Experience Details",
+    "scheduleSectionTitle": "Requested Date & Time Slot",
+    "customerSectionTitle": "Lead Guest Details",
+    "pricingSectionTitle": "Rate & Estimated Total",
+    "unitRateLabel": "Rate per person:",
+    "totalLabel": "Estimated total:",
+    "notesLabel": "Special requests:",
+    "noNotes": "No special requests provided.",
+    "ctaCatalog": "Explore more experiences",
+    "ctaExperience": "View experience",
+    "copyReference": "Copy code",
+    "referenceCopied": "Copied!",
+    "empty": {
+      "title": "No active booking request found",
+      "description": "No recent booking request was found in this browser session. To submit a booking request, please select an experience from our catalog.",
+      "action": "Explore experience catalog"
+    }
   },
   "explore": {
     "tag": "Full Catalog",
