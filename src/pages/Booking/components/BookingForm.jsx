@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Calendar,
-  CalendarDays,
-  Clock,
   Users,
   User,
   Mail,
@@ -12,17 +10,12 @@ import {
   Send,
   Info,
 } from 'lucide-react';
-import { Input, Select, Button, Card } from '../../../components/common';
-import {
-  formatDateByLocale,
-  maskDateInput,
-  parseDateInput,
-} from '../../../utils/formatters';
+import { Input, Select, Button, Card, DatePicker } from '../../../components/common';
 
 /**
  * BookingForm
  * Structured form organizing the booking request workflow:
- * - Step 1: Preferred Date & Time Slot (localized date format: mm/dd/yyyy in EN, dd/mm/yyyy in ES)
+ * - Step 1: Preferred Date (via DatePicker with availableDays restriction) & Time Slot
  * - Step 2: Guest Count
  * - Step 3: Contact & Personal Information
  * - Step 4: Special Requirements / Notes (Optional)
@@ -49,86 +42,6 @@ export default function BookingForm({
   const { t } = useTranslation('booking');
   const isEn = currentLang === 'en';
 
-  // Minimum selectable date: today in YYYY-MM-DD
-  const todayDateString = new Date().toISOString().split('T')[0];
-
-  // Localized date input text state (dd/mm/aaaa in ES, mm/dd/yyyy in EN)
-  const [displayDate, setDisplayDate] = useState(() => (date ? formatDateByLocale(date, currentLang) : ''));
-  const [dateError, setDateError] = useState('');
-  const nativePickerRef = useRef(null);
-
-  // Sync displayDate when standard ISO date or current language changes
-  useEffect(() => {
-    if (date) {
-      setDisplayDate(formatDateByLocale(date, currentLang));
-      setDateError('');
-    } else if (!displayDate) {
-      setDisplayDate('');
-    }
-  }, [currentLang, date]);
-
-  // Handle manual typing in the localized date field with slash masking
-  const handleDateChange = (e) => {
-    const raw = e.target.value;
-    const masked = maskDateInput(raw);
-    setDisplayDate(masked);
-
-    if (!masked) {
-      setDate('');
-      setDateError('');
-      return;
-    }
-
-    const digitsOnly = masked.replace(/\D/g, '');
-    if (digitsOnly.length === 8) {
-      const parsedIso = parseDateInput(masked, currentLang);
-      if (parsedIso) {
-        if (parsedIso < todayDateString) {
-          setDateError(
-            isEn
-              ? 'Please select a date from today onwards.'
-              : 'Por favor selecciona una fecha a partir de hoy.'
-          );
-          setDate('');
-        } else {
-          setDate(parsedIso);
-          setDateError('');
-        }
-      } else {
-        setDateError(
-          isEn
-            ? 'Invalid date. Format: mm/dd/yyyy'
-            : 'Fecha inválida. Formato: dd/mm/aaaa'
-        );
-        setDate('');
-      }
-    } else {
-      // Incomplete date being typed
-      setDate('');
-      setDateError('');
-    }
-  };
-
-  // Open native calendar picker on icon button click
-  const handleOpenCalendar = () => {
-    if (nativePickerRef.current) {
-      if (typeof nativePickerRef.current.showPicker === 'function') {
-        nativePickerRef.current.showPicker();
-      } else {
-        nativePickerRef.current.focus();
-      }
-    }
-  };
-
-  // Handle date selection from native picker modal
-  const handleNativePickerChange = (e) => {
-    const isoVal = e.target.value;
-    if (!isoVal) return;
-    setDate(isoVal);
-    setDisplayDate(formatDateByLocale(isoVal, currentLang));
-    setDateError('');
-  };
-
   // Dynamic guest options bounded by experience groupSize
   const minGuests = experience.groupSize?.min || 1;
   const maxGuests = experience.groupSize?.max || 8;
@@ -154,7 +67,7 @@ export default function BookingForm({
   return (
     <form onSubmit={onSubmit} className="space-y-6 sm:space-y-8">
       {/* SECTION 1: Date & Time Slot */}
-      <Card className="p-5 sm:p-7 bg-white border border-stone shadow-xs space-y-4">
+      <Card className="p-5 sm:p-7 bg-white border border-stone shadow-xs space-y-4 relative z-30 overflow-visible">
         <div className="border-b border-stone/70 pb-3">
           <div className="flex items-center gap-2 text-forest font-serif text-lg font-bold">
             <Calendar className="w-5 h-5 text-sand-gold-dark" />
@@ -166,45 +79,14 @@ export default function BookingForm({
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-1">
-          <div className="relative">
-            <Input
-              label={t('request.dateLabel')}
-              type="text"
-              inputMode="numeric"
-              id="booking-date"
-              value={displayDate}
-              onChange={handleDateChange}
-              placeholder={t('request.datePlaceholder')}
-              hint={dateError ? null : t('request.dateHint')}
-              error={dateError}
-              required
-              maxLength={10}
-              leftIcon={<Calendar className="w-4 h-4" />}
-              rightIcon={
-                <button
-                  type="button"
-                  onClick={handleOpenCalendar}
-                  className="p-1 rounded text-charcoal-muted hover:text-forest transition-colors cursor-pointer"
-                  title={t('request.openCalendar')}
-                  aria-label={t('request.openCalendar')}
-                >
-                  <CalendarDays className="w-4 h-4" />
-                </button>
-              }
-            />
-
-            {/* Hidden native date input to trigger calendar dialog */}
-            <input
-              ref={nativePickerRef}
-              type="date"
-              tabIndex={-1}
-              aria-hidden="true"
-              min={todayDateString}
-              value={date}
-              onChange={handleNativePickerChange}
-              className="sr-only pointer-events-none"
-            />
-          </div>
+          <DatePicker
+            label={t('request.dateLabel')}
+            id="booking-date"
+            value={date}
+            onChange={setDate}
+            availableDays={experience.availability?.availableDays || [0, 1, 2, 3, 4, 5, 6]}
+            required
+          />
 
           <Select
             label={t('request.timeLabel')}
@@ -219,7 +101,7 @@ export default function BookingForm({
       </Card>
 
       {/* SECTION 2: Guests Count */}
-      <Card className="p-5 sm:p-7 bg-white border border-stone shadow-xs space-y-4">
+      <Card className="p-5 sm:p-7 bg-white border border-stone shadow-xs space-y-4 relative z-20">
         <div className="border-b border-stone/70 pb-3">
           <div className="flex items-center gap-2 text-forest font-serif text-lg font-bold">
             <Users className="w-5 h-5 text-sand-gold-dark" />
@@ -243,7 +125,7 @@ export default function BookingForm({
       </Card>
 
       {/* SECTION 3: Contact & Personal Information */}
-      <Card className="p-5 sm:p-7 bg-white border border-stone shadow-xs space-y-4">
+      <Card className="p-5 sm:p-7 bg-white border border-stone shadow-xs space-y-4 relative z-10">
         <div className="border-b border-stone/70 pb-3">
           <div className="flex items-center gap-2 text-forest font-serif text-lg font-bold">
             <User className="w-5 h-5 text-sand-gold-dark" />
@@ -297,7 +179,7 @@ export default function BookingForm({
       </Card>
 
       {/* SECTION 4: Special Requests / Notes (Optional) */}
-      <Card className="p-5 sm:p-7 bg-white border border-stone shadow-xs space-y-4">
+      <Card className="p-5 sm:p-7 bg-white border border-stone shadow-xs space-y-4 relative z-0">
         <div className="border-b border-stone/70 pb-3">
           <div className="flex items-center gap-2 text-forest font-serif text-lg font-bold">
             <MessageSquare className="w-5 h-5 text-sand-gold-dark" />
@@ -346,4 +228,3 @@ export default function BookingForm({
     </form>
   );
 }
-

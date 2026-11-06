@@ -118,3 +118,68 @@ export function parseDateInput(inputStr, customLocale) {
   return null;
 }
 
+/**
+ * Return today's local date in YYYY-MM-DD format (avoids UTC timezone shift issues).
+ * @returns {string}
+ */
+export function getLocalTodayIso() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+/**
+ * Format year, month (1-12) and day (1-31) into standard ISO string YYYY-MM-DD.
+ * @param {number} year
+ * @param {number} month 1-12
+ * @param {number} day 1-31
+ * @returns {string}
+ */
+export function toIsoDate(year, month, day) {
+  return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+}
+
+/**
+ * Safely parse an ISO date string (YYYY-MM-DD) into year, month (1-12), day (1-31)
+ * without triggering timezone shifts.
+ * @param {string} isoDate
+ * @returns {{ year: number, month: number, day: number } | null}
+ */
+export function parseIsoDate(isoDate) {
+  if (!isoDate || typeof isoDate !== 'string') return null;
+  const parts = isoDate.split('-');
+  if (parts.length !== 3) return null;
+  const year = Number(parts[0]);
+  const month = Number(parts[1]);
+  const day = Number(parts[2]);
+  if (!year || !month || !day) return null;
+  return { year, month, day };
+}
+
+/**
+ * Get day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday) safely without timezone offset.
+ * @param {string} isoDate YYYY-MM-DD
+ * @returns {number | null}
+ */
+export function getDayOfWeekFromIso(isoDate) {
+  const parsed = parseIsoDate(isoDate);
+  if (!parsed) return null;
+  return new Date(parsed.year, parsed.month - 1, parsed.day).getDay();
+}
+
+/**
+ * Format month and year localized (e.g. "Noviembre 2026" / "November 2026").
+ * @param {number} year
+ * @param {number} month 1-12
+ * @param {string} [locale]
+ * @returns {string}
+ */
+export function formatMonthYear(year, month, locale = 'es-AR') {
+  const d = new Date(year, month - 1, 1);
+  const formatted = new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(d);
+  return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+}
+
+

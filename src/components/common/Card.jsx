@@ -11,10 +11,13 @@ export default function Card({
   as: Component = 'div',
   ...props
 }) {
+  const hasOverflowClass = className.includes('overflow-');
+
   return (
     <Component
       className={[
-        'bg-white border border-stone rounded-xl overflow-hidden',
+        'bg-white border border-stone rounded-xl',
+        hasOverflowClass ? '' : 'overflow-hidden',
         hoverEffect ? 'transition-all duration-200 hover:border-forest/30 hover:shadow-md' : 'shadow-xs',
         className,
       ].filter(Boolean).join(' ')}
