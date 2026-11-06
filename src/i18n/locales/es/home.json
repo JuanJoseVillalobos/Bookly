@@ -1,20 +1,128 @@
 {
   "hero": {
+    "badge": "Selección Curada de Experiencias",
     "titlePart1": "Descubre. Reserva.",
     "titlePart2": "Vive la experiencia.",
-    "ctaExplore": "Explorar Experiencias",
-    "ctaFeatured": "Ver destacadas"
+    "subtitle": "Una cuidada colección de travesías, expediciones y paisajes únicos en el Noroeste Argentino. Explora opciones auténticas y solicita tu reserva de manera simple y directa.",
+    "ctaExplore": "Explorar Catálogo",
+    "ctaFeatured": "Ver Destacadas",
+    "searchPlaceholder": "Buscar por destino, cerro o actividad...",
+    "searchButton": "Buscar",
+    "stats": {
+      "curated": "Experiencias Únicas",
+      "rating": "Calificación Media",
+      "direct": "Atención Personalizada"
+    }
   },
   "featured": {
-    "title": "Experiencias Destacadas"
+    "badge": "Selección Exclusiva",
+    "title": "Experiencias Destacadas",
+    "subtitle": "Nuestras travesías más elegidas por quienes buscan autenticidad, naturaleza imponente y cultura viva.",
+    "viewAll": "Ver todo el catálogo",
+    "from": "Desde",
+    "perPerson": "/ persona",
+    "viewDetails": "Ver detalles",
+    "bookNow": "Reservar",
+    "demoNotice": "Tarifa ilustrativa"
   },
-  "values": {
-    "curationTitle": "Curaduría Exclusiva",
-    "curationDesc": "Cada experiencia es seleccionada con rigurosos estándares de calidad y autenticidad.",
-    "bookingTitle": "Reserva Simple",
-    "bookingDesc": "Solicita tu fecha y horario preferido en sencillos pasos sin fricción.",
-    "customTitle": "Trato Personalizado",
-    "customDesc": "Comunicación directa con los operadores para confirmar cada detalle."
+  "categories": {
+    "badge": "Variedad & Estilos",
+    "title": "Explora por Categoría",
+    "subtitle": "Elige el ritmo y el tipo de vivencia que mejor se adapte a tu próximo viaje.",
+    "items": {
+      "adventure": {
+        "title": "Aventura",
+        "description": "Trekking de altura, senderos ancestrales y desafíos al aire libre."
+      },
+      "excursion": {
+        "title": "Excursión",
+        "description": "Travesías guiadas por salares infinitos y sitios históricos emblemáticos."
+      },
+      "nature": {
+        "title": "Naturaleza",
+        "description": "Inmersión en selvas de yungas, cascadas secretas y biodiversidad autóctona."
+      },
+      "scenic-views": {
+        "title": "Paisajes",
+        "description": "Miradores cromáticos y atardeceres mágicos sobre cerros multicolores."
+      }
+    },
+    "exploreCategory": "Ver experiencias",
+    "countLabel": "{{count}} experiencias"
+  },
+  "benefits": {
+    "badge": "Nuestra Propuesta",
+    "title": "¿Por qué reservar con Bookly?",
+    "subtitle": "Diseñamos un puente transparente entre viajeros apasionados y anfitriones locales comprometidos.",
+    "items": {
+      "curation": {
+        "title": "Curaduría Exclusiva",
+        "description": "Seleccionamos cada experiencia con rigurosos criterios de autenticidad, calidad y seguridad."
+      },
+      "booking": {
+        "title": "Reserva Simple y Flexible",
+        "description": "Solicita tu fecha, horario preferido y número de participantes en un proceso intuitivo sin fricción."
+      },
+      "operators": {
+        "title": "Operadores Locales Verificados",
+        "description": "Conectamos directamente con guías y prestadores certificados de la región sin intermediarios innecesarios."
+      },
+      "support": {
+        "title": "Atención Personalizada",
+        "description": "Comunicación clara y seguimiento transparente antes de la confirmación final de cada reserva."
+      }
+    }
+  },
+  "testimonials": {
+    "badge": "Contenido Ilustrativo",
+    "headingMain": "Reseñas de personas reales",
+    "trustScore": "Basado en más de 3.980 reseñas verificadas",
+    "sidebarTitle": "Lo que dicen nuestros viajeros",
+    "title": "Historias de Viajeros",
+    "subtitle": "Testimonios y vivencias representativas de la calidad de nuestras experiencias.",
+    "demoAlert": "Aviso de Demostración: Los testimonios, fotografías y reseñas a continuación son ficticios y forman parte del prototipo visual de Bookly.",
+    "items": {
+      "testimonial1": {
+        "quote": "La inmensidad de las Salinas Grandes al amanecer fue una experiencia conmovedora. La atención personalizada y las recomendaciones del guía marcaron una verdadera diferencia.",
+        "author": "Lucía Fernández",
+        "location": "Córdoba, Argentina",
+        "experience": "Salt Flats Adventure",
+        "timeAgo": "hace 1 día"
+      },
+      "testimonial2": {
+        "quote": "Una travesía andina extraordinaria. El proceso de solicitud fue claro y fluido desde el primer momento, y la calidez del anfitrión superó todas las expectativas.",
+        "author": "Markus Schneider",
+        "location": "Berlín, Alemania",
+        "experience": "Mountain Escape",
+        "timeAgo": "hace 3 días"
+      },
+      "testimonial3": {
+        "quote": "Ver ponerse el sol sobre el Cerro de los Siete Colores con un brindis regional fue el punto culminante de nuestro viaje. Absolutamente inolvidable.",
+        "author": "Camila & Tomás",
+        "location": "Santiago, Chile",
+        "experience": "Andean Sunset",
+        "timeAgo": "hace 5 días"
+      },
+      "testimonial4": {
+        "quote": "Las cascadas ocultas en las Yungas parecían sacadas de un cuento. La desconexión con la naturaleza y el profesionalismo del guía fueron insuperables.",
+        "author": "Mateo Rossi",
+        "location": "Milán, Italia",
+        "experience": "Hidden Waterfalls",
+        "timeAgo": "hace 1 semana"
+      },
+      "testimonial5": {
+        "quote": "Organizar una salida personalizada fue fácil y sin complicaciones. Todo salió exactamente como lo acordamos, con un nivel de detalle impecable.",
+        "author": "Elena Valenzuela",
+        "location": "Mendoza, Argentina",
+        "experience": "Mountain Escape",
+        "timeAgo": "hace 2 semanas"
+      }
+    }
+  },
+  "cta": {
+    "badge": "Comienza tu viaje",
+    "title": "¿Listo para vivir una experiencia inolvidable?",
+    "subtitle": "Descubre nuestro catálogo completo, compara opciones y envía tu solicitud en pocos clics.",
+    "button": "Explorar Catálogo Completo"
   }
 }
-

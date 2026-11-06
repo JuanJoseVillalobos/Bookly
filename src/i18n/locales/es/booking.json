@@ -28,11 +28,72 @@
   "explore": {
     "tag": "Catálogo Completo",
     "title": "Explorar Experiencias",
-    "subtitle": "Encuentra la aventura ideal para tu próximo viaje. Filtra por categoría, ubicación y presupuesto."
+    "subtitle": "Encuentra la travesía ideal para tu próximo viaje. Una colección curada de expediciones, caminatas andinas y paisajes emblemáticos.",
+    "counter": "{{count}} experiencias disponibles",
+    "resultsCount": "Mostrando {{count}} de {{total}} experiencias",
+    "searchLabel": "Buscar experiencias",
+    "searchPlaceholder": "Buscar por nombre o ubicación (ej. Tilcara, Humahuaca...)",
+    "clearSearch": "Limpiar búsqueda",
+    "filterAll": "Todas",
+    "priceLabel": "Precio",
+    "priceAll": "Todos los precios",
+    "priceUnder70": "Hasta USD 70",
+    "price70to100": "USD 70 a USD 100",
+    "priceOver100": "Más de USD 100",
+    "sortLabel": "Ordenar por",
+    "sortFeatured": "Destacadas primero",
+    "sortPriceAsc": "Precio: menor a mayor",
+    "sortPriceDesc": "Precio: mayor a menor",
+    "sortRating": "Mejor calificación",
+    "resetAll": "Limpiar todos los filtros",
+    "activeFilters": "Filtros activos:",
+    "card": {
+      "from": "Desde",
+      "perPerson": "/ persona",
+      "viewDetails": "Ver detalles",
+      "bookNow": "Reservar",
+      "demoNotice": "Tarifa ilustrativa de demostración"
+    },
+    "empty": {
+      "title": "No se encontraron experiencias",
+      "description": "No existen experiencias que coincidan con los criterios de búsqueda o filtros seleccionados.",
+      "action": "Restablecer filtros",
+      "backHome": "Volver al inicio"
+    },
+    "loading": "Cargando catálogo de experiencias..."
   },
   "details": {
     "tag": "Detalle de Experiencia",
+    "breadcrumbCatalog": "Catálogo",
+    "aboutTitle": "Acerca de esta experiencia",
+    "highlightsTitle": "Puntos destacados",
+    "galleryTitle": "Galería de imágenes",
+    "viewAllPhotos": "Ver las {{count}} fotos",
+    "closeGallery": "Cerrar galería",
+    "photoCounter": "Foto {{current}} de {{total}}",
     "includesTitle": "Qué incluye esta experiencia",
+    "notIncludesTitle": "Qué no incluye",
+    "availabilityTitle": "Disponibilidad ilustrativa",
+    "availabilityDisclaimer": "Información ilustrativa de demostración. Los días operativos y horarios reales se coordinan directamente con el operador turístico tras enviar tu solicitud.",
+    "operatingDays": "Días operativos:",
+    "operatingDaysAll": "Salidas diarias (lunes a domingo)",
+    "seasonLabel": "Temporada recomendada:",
+    "timeSlotsLabel": "Turnos disponibles:",
+    "durationLabel": "Duración estimada",
+    "groupSizeLabel": "Capacidad de grupo",
+    "difficultyLabel": "Nivel de dificultad",
+    "locationLabel": "Ubicación",
+    "ratingLabel": "Calificación",
+    "reviewsLabel": "{{count}} opiniones",
+    "bookingCardTitle": "Solicitar reserva",
+    "bookingCardSubtitle": "Elige tu fecha y cantidad de huéspedes en el siguiente paso.",
+    "ctaButton": "Iniciar Solicitud de Reserva",
+    "ctaHelp": "No se requiere pago por adelantado. Solicitud sujeta a confirmación.",
+    "estimatedRate": "Tarifa estimada",
+    "perPerson": "/ persona",
+    "notFoundTitle": "Experiencia no encontrada",
+    "notFoundMessage": "El identificador de experiencia al que intentas acceder no existe en nuestro catálogo.",
+    "backToCatalog": "Volver al catálogo de experiencias",
     "includes": [
       "Guía profesional local certificado",
       "Seguro de actividad incluido",
@@ -41,4 +102,3 @@
     ]
   }
 }
-
