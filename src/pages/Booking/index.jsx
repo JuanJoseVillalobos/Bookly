@@ -7,7 +7,10 @@ import {
   BookingHeader,
   BookingSummaryCard,
   BookingForm,
+  BookingReview,
+  BookingStepsNav,
 } from './components';
+import { validateBookingForm } from '../../utils/validation.js';
 
 /**
  * Booking Page
@@ -15,8 +18,11 @@ import {
  * Core booking request flow page:
  * - Dynamic route `/booking/:id` preserving experience context.
  * - Handles missing or non-existent experience IDs with a dedicated Not Found view.
- * - 2-column responsive layout: structured form on left, sticky experience summary card on right.
- * - Manages input state for date, time slot, guest count, personal contact info, and special notes.
+ * - Two-step flow: Form Input -> Request Review -> Confirmation.
+ * - Strict field-level and global validation for dates, time slots, guest counts, and customer info.
+ * - Review step displays full summary and requires explicit confirmation before sending.
+ * - Guarantees data persistence when navigating back from review to edit.
+ * - 2-column responsive layout: structured left column, sticky experience summary card on right.
  * - Integrates with Bookly's design system and full i18n support (ES/EN).
  */
 export default function Booking() {
@@ -27,30 +33,101 @@ export default function Booking() {
 
   const experience = getExperienceById(id, currentLang);
 
+  // Flow Step: 'form' | 'review'
+  const [currentStep, setCurrentStep] = useState('form');
+
   // Form State
   const [date, setDate] = useState('');
   const [timeSlot, setTimeSlot] = useState('');
-  const [guests, setGuests] = useState('2');
+  const [guests, setGuests] = useState(() => String(experience?.groupSize?.min || 2));
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [notes, setNotes] = useState('');
+
+  // Validation & Submission State
+  const [errors, setErrors] = useState({});
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Handle Non-Existent Experience Identifier
   if (!experience) {
     return <BookingNotFound />;
   }
 
-  // Handle Form Submission (Simulation)
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // Clear single field error on user interaction
+  const handleClearError = (field) => {
+    if (errors[field]) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[field];
+        return next;
+      });
+    }
+  };
+
+  // Step 1 -> Step 2: Validate and advance to review
+  const handleProceedToReview = (e) => {
+    if (e) e.preventDefault();
     setHasAttemptedSubmit(true);
-    if (!date || !timeSlot) {
+
+    const validation = validateBookingForm({
+      date,
+      timeSlot,
+      guests,
+      fullName,
+      email,
+      phone,
+      experience,
+      currentLang,
+      t,
+    });
+
+    if (!validation.isValid) {
+      setErrors(validation.errors);
+      // Smooth scroll to top of form to reveal error summary
+      window.scrollTo({ top: 160, behavior: 'smooth' });
       return;
     }
-    // Navigate to confirmation page
-    navigate('/confirmation');
+
+    setErrors({});
+    setCurrentStep('review');
+    window.scrollTo({ top: 120, behavior: 'smooth' });
+  };
+
+  // Step 2 -> Step 1: Return to edit keeping all inputs intact
+  const handleBackToForm = () => {
+    setCurrentStep('form');
+    window.scrollTo({ top: 120, behavior: 'smooth' });
+  };
+
+  // Step 2 -> Submit: Final validation and simulate submission
+  const handleConfirmSubmit = () => {
+    // Re-validate to guarantee absolute consistency
+    const validation = validateBookingForm({
+      date,
+      timeSlot,
+      guests,
+      fullName,
+      email,
+      phone,
+      experience,
+      currentLang,
+      t,
+    });
+
+    if (!validation.isValid) {
+      setErrors(validation.errors);
+      setCurrentStep('form');
+      return;
+    }
+
+    setIsSubmitting(true);
+    // Simulate brief submission dispatch and transition to confirmation
+    setTimeout(() => {
+      setIsSubmitting(false);
+      navigate('/confirmation');
+    }, 400);
   };
 
   return (
@@ -58,37 +135,82 @@ export default function Booking() {
       {/* 1. Header & Navigation Context */}
       <BookingHeader experience={experience} />
 
-      {/* 2. Main Two-Column Layout */}
+      {/* 2. Visual Step Navigation */}
+      <BookingStepsNav
+        currentStep={currentStep}
+        onStepClick={(stepId) => {
+          if (stepId === 'form' && currentStep === 'review') {
+            handleBackToForm();
+          }
+        }}
+      />
+
+      {/* 3. Main Two-Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-        {/* Left Column: Structured Form Sections (7 or 8 cols) */}
+        {/* Left Column: Form or Review Step */}
         <div className="lg:col-span-7 xl:col-span-8">
-          <BookingForm
-            experience={experience}
-            currentLang={currentLang}
-            date={date}
-            setDate={(newDate) => {
-              setDate(newDate);
-              // Clear timeSlotError on date change
-              if (!newDate) setTimeSlot('');
-            }}
-            timeSlot={timeSlot}
-            setTimeSlot={setTimeSlot}
-            timeSlotError={hasAttemptedSubmit && !timeSlot ? t('request.timeSlotRequired') : ''}
-            guests={guests}
-            setGuests={setGuests}
-            fullName={fullName}
-            setFullName={setFullName}
-            email={email}
-            setEmail={setEmail}
-            phone={phone}
-            setPhone={setPhone}
-            notes={notes}
-            setNotes={setNotes}
-            onSubmit={handleSubmit}
-          />
+          {currentStep === 'form' ? (
+            <BookingForm
+              experience={experience}
+              currentLang={currentLang}
+              date={date}
+              setDate={(newDate) => {
+                setDate(newDate);
+                // Clear timeSlot if date is cleared or changed
+                if (!newDate) setTimeSlot('');
+                handleClearError('date');
+              }}
+              timeSlot={timeSlot}
+              setTimeSlot={(newSlot) => {
+                setTimeSlot(newSlot);
+                handleClearError('timeSlot');
+              }}
+              guests={guests}
+              setGuests={(newGuests) => {
+                setGuests(newGuests);
+                handleClearError('guests');
+              }}
+              fullName={fullName}
+              setFullName={(name) => {
+                setFullName(name);
+                handleClearError('fullName');
+              }}
+              email={email}
+              setEmail={(m) => {
+                setEmail(m);
+                handleClearError('email');
+              }}
+              phone={phone}
+              setPhone={(p) => {
+                setPhone(p);
+                handleClearError('phone');
+              }}
+              notes={notes}
+              setNotes={setNotes}
+              onSubmit={handleProceedToReview}
+              errors={errors}
+              hasAttemptedSubmit={hasAttemptedSubmit}
+              onClearError={handleClearError}
+            />
+          ) : (
+            <BookingReview
+              experience={experience}
+              currentLang={currentLang}
+              date={date}
+              timeSlot={timeSlot}
+              guests={guests}
+              fullName={fullName}
+              email={email}
+              phone={phone}
+              notes={notes}
+              onBackToEdit={handleBackToForm}
+              onConfirmSubmit={handleConfirmSubmit}
+              isSubmitting={isSubmitting}
+            />
+          )}
         </div>
 
-        {/* Right Column: Sticky Experience Summary Card (5 or 4 cols) */}
+        {/* Right Column: Sticky Experience Summary Card */}
         <BookingSummaryCard
           experience={experience}
           currentLang={currentLang}

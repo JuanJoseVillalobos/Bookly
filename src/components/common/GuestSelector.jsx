@@ -26,6 +26,7 @@ export default function GuestSelector({
   label,
   id = 'guest-selector',
   disabled = false,
+  error,
   className = '',
 }) {
   const { t, i18n } = useTranslation('booking');
@@ -80,7 +81,11 @@ export default function GuestSelector({
       )}
 
       {/* 2. Stepper & Price Calculation Card */}
-      <div className="p-4 sm:p-5 rounded-2xl border border-stone bg-white shadow-2xs space-y-4">
+      <div
+        className={`p-4 sm:p-5 rounded-2xl border bg-white shadow-2xs space-y-4 transition-colors ${
+          error ? 'border-red-500 bg-red-50/10' : 'border-stone'
+        }`}
+      >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           {/* Stepper Controls */}
           <div className="flex items-center gap-3">
@@ -181,6 +186,14 @@ export default function GuestSelector({
           </div>
         )}
       </div>
+
+      {/* Error Feedback */}
+      {error && (
+        <p className="mt-1 text-xs text-red-600 font-medium flex items-center gap-1" role="alert">
+          <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+          <span>{error}</span>
+        </p>
+      )}
     </div>
   );
 }

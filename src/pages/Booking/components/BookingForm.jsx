@@ -7,8 +7,9 @@ import {
   Mail,
   Phone,
   MessageSquare,
-  Send,
+  ArrowRight,
   Info,
+  AlertCircle,
 } from 'lucide-react';
 import {
   Input,
@@ -26,6 +27,7 @@ import {
  * - Step 2: Guest Count
  * - Step 3: Contact & Personal Information
  * - Step 4: Special Requirements / Notes (Optional)
+ * - Integrated field-level and global validation feedback.
  */
 export default function BookingForm({
   experience,
@@ -34,7 +36,6 @@ export default function BookingForm({
   setDate,
   timeSlot,
   setTimeSlot,
-  timeSlotError,
   guests,
   setGuests,
   fullName,
@@ -46,6 +47,9 @@ export default function BookingForm({
   notes,
   setNotes,
   onSubmit,
+  errors = {},
+  hasAttemptedSubmit = false,
+  onClearError,
 }) {
   const { t } = useTranslation('booking');
   const isEn = currentLang === 'en';
@@ -54,8 +58,37 @@ export default function BookingForm({
   const minGuests = experience.groupSize?.min || 1;
   const maxGuests = experience.groupSize?.max || 8;
 
+  const errorKeys = Object.keys(errors);
+  const hasErrors = errorKeys.length > 0;
+
   return (
-    <form onSubmit={onSubmit} className="space-y-6 sm:space-y-8">
+    <form onSubmit={onSubmit} noValidate className="space-y-6 sm:space-y-8">
+      {/* Global Validation Error Banner */}
+      {hasAttemptedSubmit && hasErrors && (
+        <div
+          role="alert"
+          aria-live="assertive"
+          className="p-4 sm:p-5 rounded-2xl bg-red-50 border border-red-200 text-red-900 flex items-start gap-3.5 shadow-xs animate-in fade-in"
+        >
+          <div className="w-8 h-8 rounded-xl bg-red-100 flex items-center justify-center shrink-0">
+            <AlertCircle className="w-5 h-5 text-red-600" />
+          </div>
+          <div className="space-y-1.5 flex-1 min-w-0">
+            <h4 className="text-sm font-semibold text-red-900">
+              {t(
+                'request.errors.formHasErrors',
+                'Por favor revisa y corrige los campos señalados antes de continuar.'
+              )}
+            </h4>
+            <ul className="text-xs space-y-1 text-red-700 list-disc list-inside">
+              {errorKeys.map((key) => (
+                <li key={key}>{errors[key]}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+
       {/* SECTION 1: Date & Time Slot */}
       <Card className="p-5 sm:p-7 bg-white border border-stone shadow-xs space-y-4 relative z-30 overflow-visible">
         <div className="border-b border-stone/70 pb-3">
@@ -73,8 +106,12 @@ export default function BookingForm({
             label={t('request.dateLabel')}
             id="booking-date"
             value={date}
-            onChange={setDate}
+            onChange={(newDate) => {
+              setDate(newDate);
+              onClearError?.('date');
+            }}
             availableDays={experience.availability?.availableDays || [0, 1, 2, 3, 4, 5, 6]}
+            error={errors.date}
             required
           />
 
@@ -82,10 +119,13 @@ export default function BookingForm({
             label={t('request.timeLabel')}
             id="booking-time"
             value={timeSlot}
-            onChange={setTimeSlot}
+            onChange={(newSlot) => {
+              setTimeSlot(newSlot);
+              onClearError?.('timeSlot');
+            }}
             experience={experience}
             selectedDate={date}
-            error={timeSlotError}
+            error={errors.timeSlot}
             required
           />
         </div>
@@ -108,11 +148,15 @@ export default function BookingForm({
             label={t('request.guestsLabel')}
             id="booking-guests"
             value={guests}
-            onChange={setGuests}
+            onChange={(newGuests) => {
+              setGuests(newGuests);
+              onClearError?.('guests');
+            }}
             min={minGuests}
             max={maxGuests}
             unitPrice={experience.price}
             currency={experience.currency}
+            error={errors.guests}
           />
         </div>
       </Card>
@@ -134,10 +178,14 @@ export default function BookingForm({
             label={t('request.nameLabel')}
             id="booking-fullname"
             value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
+            onChange={(e) => {
+              setFullName(e.target.value);
+              onClearError?.('fullName');
+            }}
             placeholder={t('request.namePlaceholder')}
             required
             autoComplete="name"
+            error={errors.fullName}
             leftIcon={<User className="w-4 h-4" />}
           />
 
@@ -147,11 +195,15 @@ export default function BookingForm({
               type="email"
               id="booking-email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                onClearError?.('email');
+              }}
               placeholder={t('request.emailPlaceholder')}
               required
               autoComplete="email"
               hint={t('request.emailHint')}
+              error={errors.email}
               leftIcon={<Mail className="w-4 h-4" />}
             />
 
@@ -160,11 +212,15 @@ export default function BookingForm({
               type="tel"
               id="booking-phone"
               value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e) => {
+                setPhone(e.target.value);
+                onClearError?.('phone');
+              }}
               placeholder={t('request.phonePlaceholder')}
               required
               autoComplete="tel"
               inputMode="tel"
+              error={errors.phone}
               leftIcon={<Phone className="w-4 h-4" />}
             />
           </div>
@@ -212,10 +268,10 @@ export default function BookingForm({
           variant="primary"
           size="lg"
           type="submit"
-          className="w-full sm:w-auto shadow-md hover:shadow-lg shrink-0 justify-center"
-          rightIcon={<Send className="w-4 h-4" />}
+          className="w-full sm:w-auto shadow-md hover:shadow-lg shrink-0 justify-center cursor-pointer"
+          rightIcon={<ArrowRight className="w-4 h-4" />}
         >
-          {t('request.submitBtn')}
+          {t('request.reviewBtn', 'Revisar Solicitud')}
         </Button>
       </div>
     </form>
