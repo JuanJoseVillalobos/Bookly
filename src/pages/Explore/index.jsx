@@ -248,7 +248,7 @@ export default function Explore() {
           <div
             className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none max-w-full"
             role="tablist"
-            aria-label="Filtro de categorías"
+            aria-label={t('explore.categoryFilterAria', 'Filtro de categorías')}
           >
             {categories.map((cat) => {
               const isActive = activeCategory === cat.id;
@@ -300,7 +300,7 @@ export default function Explore() {
                   type="button"
                   onClick={() => updateParam('q', '')}
                   className="hover:text-forest-dark cursor-pointer"
-                  aria-label="Eliminar filtro de búsqueda"
+                  aria-label={t('explore.removeSearchFilter', 'Eliminar filtro de búsqueda')}
                 >
                   <X className="w-3 h-3" />
                 </button>
@@ -317,7 +317,7 @@ export default function Explore() {
                   type="button"
                   onClick={() => updateParam('category', 'all')}
                   className="hover:text-forest-dark cursor-pointer"
-                  aria-label="Eliminar filtro de categoría"
+                  aria-label={t('explore.removeCategoryFilter', 'Eliminar filtro de categoría')}
                 >
                   <X className="w-3 h-3" />
                 </button>
@@ -334,7 +334,7 @@ export default function Explore() {
                   type="button"
                   onClick={() => updateParam('price', 'all')}
                   className="hover:text-sand-gold-dark cursor-pointer"
-                  aria-label="Eliminar filtro de precio"
+                  aria-label={t('explore.removePriceFilter', 'Eliminar filtro de precio')}
                 >
                   <X className="w-3 h-3" />
                 </button>
@@ -351,7 +351,7 @@ export default function Explore() {
                   type="button"
                   onClick={() => updateParam('sort', 'featured')}
                   className="hover:text-charcoal cursor-pointer"
-                  aria-label="Restablecer orden"
+                  aria-label={t('explore.resetSortFilter', 'Restablecer orden')}
                 >
                   <X className="w-3 h-3" />
                 </button>

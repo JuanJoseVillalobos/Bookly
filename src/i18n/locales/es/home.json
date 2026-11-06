@@ -8,9 +8,11 @@
     "ctaFeatured": "Ver Destacadas",
     "searchPlaceholder": "Buscar por destino, cerro o actividad...",
     "searchButton": "Buscar",
+    "mobileImageAlt": "Paisaje andino del Noroeste Argentino",
     "stats": {
       "curated": "Experiencias Únicas",
       "rating": "Calificación Media",
+      "directTitle": "Directo y Seguro",
       "direct": "Atención Personalizada"
     }
   },
@@ -80,6 +82,9 @@
     "sidebarTitle": "Lo que dicen nuestros viajeros",
     "title": "Historias de Viajeros",
     "subtitle": "Testimonios y vivencias representativas de la calidad de nuestras experiencias.",
+    "prevAria": "Anterior testimonio",
+    "nextAria": "Siguiente testimonio",
+    "starsAria": "5 de 5 estrellas",
     "demoAlert": "Aviso de Demostración: Los testimonios, fotografías y reseñas a continuación son ficticios y forman parte del prototipo visual de Bookly.",
     "items": {
       "testimonial1": {

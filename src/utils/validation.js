@@ -118,7 +118,8 @@ export function validateFullName(fullName, t) {
     return t('request.errors.nameRequired', 'El nombre completo es obligatorio.');
   }
 
-  if (fullName.trim().length < 3) {
+  const trimmed = fullName.trim();
+  if (trimmed.length < 3 || trimmed.length > 120 || /[<>]/.test(trimmed)) {
     return t(
       'request.errors.nameInvalid',
       'Por favor ingresa un nombre válido (al menos 3 caracteres).'

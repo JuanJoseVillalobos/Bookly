@@ -19,27 +19,23 @@ import { experiences } from '../../../data/experiences';
 export default function CategoriesSection() {
   const { t } = useTranslation('home');
 
-  // Map category identifiers to tailored icon, background photo and color accents
+  // Map category identifiers to tailored icon
   const categoryConfigs = [
     {
       id: 'adventure',
       icon: <Mountain className="w-6 h-6 text-forest" />,
-      bgImage: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=70',
     },
     {
       id: 'excursion',
       icon: <Compass className="w-6 h-6 text-forest" />,
-      bgImage: 'https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=600&q=70',
     },
     {
       id: 'nature',
       icon: <Trees className="w-6 h-6 text-forest" />,
-      bgImage: 'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=600&q=70',
     },
     {
       id: 'scenic-views',
       icon: <Eye className="w-6 h-6 text-forest" />,
-      bgImage: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=70',
     },
   ];
 

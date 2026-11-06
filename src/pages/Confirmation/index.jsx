@@ -5,9 +5,7 @@ import {
   Clock,
   ArrowRight,
   Calendar,
-  Users,
   MapPin,
-  CheckCircle2,
   Copy,
   Check,
   User,
@@ -15,11 +13,11 @@ import {
   Phone,
   MessageSquare,
   ShieldAlert,
-  ShieldCheck,
   ExternalLink,
 } from 'lucide-react';
 import { Button, Card, Badge } from '../../components/common';
 import { getBookingRequestById, getLatestBookingRequest } from '../../services/bookingService';
+import { getExperienceById, getTimeSlotsForDate } from '../../data/experiences';
 import { formatDateByLocale, formatCurrency } from '../../utils/formatters';
 import ConfirmationNotFound from './components/ConfirmationNotFound';
 
@@ -93,7 +91,21 @@ export default function Confirmation() {
     }
   }
 
-  const timeLabel = booking.requestedTimeLabel || `${booking.requestedTime} hs`;
+  // Resolve live localized experience metadata so switching ES/EN on confirmation updates labels dynamically
+  const liveExperience = booking.experienceId
+    ? getExperienceById(booking.experienceId, currentLang)
+    : null;
+
+  const displayedTitle = liveExperience?.title || booking.experienceTitle || booking.experienceName;
+  const displayedCategory = liveExperience?.category || booking.experienceCategory;
+  const displayedLocation = liveExperience?.locationFull || liveExperience?.location || booking.experienceLocation;
+
+  let timeLabel = booking.requestedTimeLabel || `${booking.requestedTime} hs`;
+  if (liveExperience && booking.requestedDate && booking.requestedTime) {
+    const slots = getTimeSlotsForDate(liveExperience, booking.requestedDate, currentLang);
+    const matched = slots.find((s) => s.value === booking.requestedTime);
+    if (matched?.label) timeLabel = matched.label;
+  }
 
   return (
     <div className="py-8 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto space-y-6 sm:space-y-8 animate-in fade-in duration-200">
@@ -182,21 +194,21 @@ export default function Confirmation() {
 
           <div className="space-y-1 flex-1 min-w-0">
             <div className="flex flex-wrap items-center gap-2">
-              {booking.experienceCategory && (
+              {displayedCategory && (
                 <Badge variant="stone" size="sm">
-                  {booking.experienceCategory}
+                  {displayedCategory}
                 </Badge>
               )}
             </div>
 
             <h2 className="font-serif text-lg sm:text-xl font-bold text-forest leading-snug">
-              {booking.experienceTitle || booking.experienceName}
+              {displayedTitle}
             </h2>
 
-            {booking.experienceLocation && (
+            {displayedLocation && (
               <p className="text-xs text-charcoal-muted flex items-center gap-1">
                 <MapPin className="w-3.5 h-3.5 text-forest shrink-0" />
-                <span>{booking.experienceLocation}</span>
+                <span>{displayedLocation}</span>
               </p>
             )}
           </div>
