@@ -2369,4 +2369,58 @@ export function filterExperiences({
     });
 }
 
+/**
+ * Returns available time slots for a given experience and date.
+ * Simulates realistic, deterministic capacity and availability per date.
+ *
+ * @param {Object} experience
+ * @param {string} selectedDate ISO string YYYY-MM-DD
+ * @param {string} [lang='es']
+ * @returns {Array<{ value: string, label: string, isAvailable: boolean, spotsLeft: number }>}
+ */
+export function getTimeSlotsForDate(experience, selectedDate, lang = 'es') {
+  if (!experience || !selectedDate) return [];
+
+  const l = lang.startsWith('en') ? 'en' : 'es';
+  const parts = selectedDate.split('-');
+  if (parts.length !== 3) return [];
+  const year = Number(parts[0]);
+  const month = Number(parts[1]);
+  const day = Number(parts[2]);
+  if (!year || !month || !day) return [];
+
+  // Check if experience operates on this day of week
+  const dayOfWeek = new Date(year, month - 1, day).getDay();
+  const availableDays = experience.availability?.availableDays || [0, 1, 2, 3, 4, 5, 6];
+  if (!availableDays.includes(dayOfWeek)) {
+    return [];
+  }
+
+  // Base illustrative slots
+  const baseSlots = experience.timeSlots || [
+    { value: '09:00', label: l === 'en' ? '09:00 AM — Morning' : '09:00 hs — Turno Mañana' },
+    { value: '14:00', label: l === 'en' ? '02:00 PM — Afternoon' : '14:00 hs — Turno Tarde' },
+  ];
+
+  // Deterministic seed based on experience id + date
+  const expIdNum = parseInt(String(experience.id).replace(/\D/g, '') || '1', 10);
+  const dateSeed = year * 10000 + month * 100 + day + expIdNum * 31;
+
+  return baseSlots.map((slot, index) => {
+    const slotNum = parseInt(slot.value.replace(':', ''), 10) || 900;
+    const slotSeed = (dateSeed + index * 17 + slotNum) % 10;
+
+    // High availability simulation (~85% available, ~15% booked out)
+    const isAvailable = baseSlots.length === 1 ? slotSeed !== 7 : (index === 0 ? slotSeed !== 3 : slotSeed !== 8);
+    const spotsLeft = isAvailable ? ((slotSeed % 6) + 2) : 0;
+
+    return {
+      value: slot.value,
+      label: typeof slot.label === 'object' ? (slot.label[l] || slot.label.es || slot.value) : slot.label,
+      isAvailable,
+      spotsLeft,
+    };
+  });
+}
+
 export default experiences;

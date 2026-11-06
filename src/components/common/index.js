@@ -4,4 +4,6 @@ export { default as Select } from './Select';
 export { default as Badge } from './Badge';
 export { default as Card } from './Card';
 export { default as DatePicker } from './DatePicker';
+export { default as TimeSlotSelector } from './TimeSlotSelector';
+export { default as GuestSelector } from './GuestSelector';
 export { default as ScrollToTop } from './ScrollToTop';
