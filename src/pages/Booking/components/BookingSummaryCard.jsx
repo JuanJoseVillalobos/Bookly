@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { Card, Badge } from '../../../components/common';
 import { formatCurrency, formatDateByLocale } from '../../../utils/formatters';
+import { calculateBookingPrice } from '../../../utils/pricing';
 
 /**
  * BookingSummaryCard
@@ -29,10 +30,11 @@ export default function BookingSummaryCard({
   const { t } = useTranslation('booking');
   const isEn = currentLang === 'en';
 
-  const unitPrice = experience.price || 0;
-  const currency = experience.currency || 'USD';
-  const guestCount = parseInt(guests, 10) || 1;
-  const estimatedTotal = unitPrice * guestCount;
+  const pricing = calculateBookingPrice({
+    unitPrice: experience.price || 0,
+    guestCount: guests,
+    currency: experience.currency || 'USD',
+  });
 
   // Format date display (mm/dd/yyyy in English, dd/mm/yyyy in Spanish)
   let formattedDate = t('request.summaryDateEmpty');
@@ -85,7 +87,7 @@ export default function BookingSummaryCard({
             <div className="flex justify-between items-center text-charcoal-muted">
               <span>{t('request.summaryRateLabel')}</span>
               <span className="font-semibold text-charcoal">
-                {formatCurrency(unitPrice, currency, currentLang)}
+                {formatCurrency(pricing.unitPrice, pricing.currency, currentLang)}
               </span>
             </div>
 
@@ -95,7 +97,7 @@ export default function BookingSummaryCard({
                 <span>{t('request.summaryGuestsLabel')}</span>
               </span>
               <span className="font-semibold text-charcoal">
-                {guestCount} {isEn ? (guestCount === 1 ? 'guest' : 'guests') : (guestCount === 1 ? 'huésped' : 'huéspedes')}
+                {pricing.guestCount} {isEn ? (pricing.guestCount === 1 ? 'guest' : 'guests') : (pricing.guestCount === 1 ? 'huésped' : 'huéspedes')}
               </span>
             </div>
 
@@ -127,12 +129,12 @@ export default function BookingSummaryCard({
                 {t('request.summaryTotalLabel')}
               </span>
               <span className="text-xs text-charcoal-muted">
-                {formatCurrency(unitPrice, currency, currentLang)} × {guestCount}
+                {formatCurrency(pricing.unitPrice, pricing.currency, currentLang)} × {pricing.guestCount}
               </span>
             </div>
             <div className="text-right">
               <span className="font-serif text-2xl font-bold text-forest">
-                {formatCurrency(estimatedTotal, currency, currentLang)}
+                {formatCurrency(pricing.estimatedTotal, pricing.currency, currentLang)}
               </span>
             </div>
           </div>

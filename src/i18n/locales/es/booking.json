@@ -41,6 +41,17 @@
     "stepGuestsTitle": "2. Cantidad de Huéspedes",
     "stepGuestsSubtitle": "Capacidad máxima para este grupo: {{max}} personas.",
     "guestsLabel": "Cantidad de huéspedes",
+    "guestSelector": {
+      "guestsSingle": "1 persona",
+      "guestsMultiple": "{{count}} personas",
+      "increase": "Aumentar participantes",
+      "decrease": "Disminuir participantes",
+      "minReached": "Mínimo permitido: {{min}} persona",
+      "minReachedMultiple": "Mínimo permitido: {{min}} personas",
+      "maxReached": "Capacidad máxima alcanzada (máx. {{max}} personas)",
+      "unitRate": "Tarifa por persona",
+      "estimatedSubtotal": "Total estimado"
+    },
     "stepContactTitle": "3. Información de Contacto",
     "stepContactSubtitle": "Datos del titular para que el operador confirme la disponibilidad.",
     "nameLabel": "Nombre completo",

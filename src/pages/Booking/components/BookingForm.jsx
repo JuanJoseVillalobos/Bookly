@@ -12,11 +12,11 @@ import {
 } from 'lucide-react';
 import {
   Input,
-  Select,
   Button,
   Card,
   DatePicker,
   TimeSlotSelector,
+  GuestSelector,
 } from '../../../components/common';
 
 /**
@@ -53,15 +53,6 @@ export default function BookingForm({
   // Dynamic guest options bounded by experience groupSize
   const minGuests = experience.groupSize?.min || 1;
   const maxGuests = experience.groupSize?.max || 8;
-  const guestOptions = [];
-  for (let i = minGuests; i <= maxGuests; i++) {
-    guestOptions.push({
-      value: String(i),
-      label: isEn
-        ? `${i} ${i === 1 ? 'person' : 'people'}`
-        : `${i} ${i === 1 ? 'persona' : 'personas'}`,
-    });
-  }
 
   return (
     <form onSubmit={onSubmit} className="space-y-6 sm:space-y-8">
@@ -112,14 +103,16 @@ export default function BookingForm({
           </p>
         </div>
 
-        <div className="max-w-xs pt-1">
-          <Select
+        <div className="pt-1">
+          <GuestSelector
             label={t('request.guestsLabel')}
             id="booking-guests"
             value={guests}
-            onChange={(e) => setGuests(e.target.value)}
-            options={guestOptions}
-            required
+            onChange={setGuests}
+            min={minGuests}
+            max={maxGuests}
+            unitPrice={experience.price}
+            currency={experience.currency}
           />
         </div>
       </Card>

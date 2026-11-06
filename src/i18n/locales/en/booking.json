@@ -41,6 +41,17 @@
     "stepGuestsTitle": "2. Number of Guests",
     "stepGuestsSubtitle": "Maximum group size for this tour: {{max}} people.",
     "guestsLabel": "Number of guests",
+    "guestSelector": {
+      "guestsSingle": "1 person",
+      "guestsMultiple": "{{count}} people",
+      "increase": "Increase participants",
+      "decrease": "Decrease participants",
+      "minReached": "Minimum required: {{min}} person",
+      "minReachedMultiple": "Minimum required: {{min}} people",
+      "maxReached": "Maximum group size reached (max {{max}} people)",
+      "unitRate": "Rate per person",
+      "estimatedSubtotal": "Estimated total"
+    },
     "stepContactTitle": "3. Contact Information",
     "stepContactSubtitle": "Primary contact details for the operator to coordinate availability.",
     "nameLabel": "Full name",
