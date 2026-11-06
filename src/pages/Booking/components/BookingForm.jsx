@@ -10,12 +10,19 @@ import {
   Send,
   Info,
 } from 'lucide-react';
-import { Input, Select, Button, Card, DatePicker } from '../../../components/common';
+import {
+  Input,
+  Select,
+  Button,
+  Card,
+  DatePicker,
+  TimeSlotSelector,
+} from '../../../components/common';
 
 /**
  * BookingForm
  * Structured form organizing the booking request workflow:
- * - Step 1: Preferred Date (via DatePicker with availableDays restriction) & Time Slot
+ * - Step 1: Preferred Date (via DatePicker with availableDays restriction) & Time Slot (via TimeSlotSelector)
  * - Step 2: Guest Count
  * - Step 3: Contact & Personal Information
  * - Step 4: Special Requirements / Notes (Optional)
@@ -27,6 +34,7 @@ export default function BookingForm({
   setDate,
   timeSlot,
   setTimeSlot,
+  timeSlotError,
   guests,
   setGuests,
   fullName,
@@ -55,15 +63,6 @@ export default function BookingForm({
     });
   }
 
-  // Time slot options
-  const timeSlotOptions = experience?.timeSlots?.length > 0
-    ? experience.timeSlots
-    : [
-        { value: '09:00', label: isEn ? '09:00 AM — Morning' : '09:00 hs — Turno Mañana' },
-        { value: '14:00', label: isEn ? '02:00 PM — Afternoon' : '14:00 hs — Turno Tarde' },
-        { value: '18:00', label: isEn ? '06:00 PM — Sunset' : '18:00 hs — Turno Atardecer' },
-      ];
-
   return (
     <form onSubmit={onSubmit} className="space-y-6 sm:space-y-8">
       {/* SECTION 1: Date & Time Slot */}
@@ -78,7 +77,7 @@ export default function BookingForm({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
           <DatePicker
             label={t('request.dateLabel')}
             id="booking-date"
@@ -88,13 +87,14 @@ export default function BookingForm({
             required
           />
 
-          <Select
+          <TimeSlotSelector
             label={t('request.timeLabel')}
             id="booking-time"
             value={timeSlot}
-            onChange={(e) => setTimeSlot(e.target.value)}
-            placeholder={t('request.timePlaceholder')}
-            options={timeSlotOptions}
+            onChange={setTimeSlot}
+            experience={experience}
+            selectedDate={date}
+            error={timeSlotError}
             required
           />
         </div>
