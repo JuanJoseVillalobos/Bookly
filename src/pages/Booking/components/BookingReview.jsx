@@ -16,6 +16,7 @@ import {
   MapPin,
   Edit2,
   AlertCircle,
+  Loader2,
 } from 'lucide-react';
 import { Card, Button, Badge } from '../../../components/common';
 import { formatCurrency, formatDateByLocale } from '../../../utils/formatters';
@@ -50,6 +51,7 @@ export default function BookingReview({
   onBackToEdit,
   onConfirmSubmit,
   isSubmitting = false,
+  submissionError = '',
 }) {
   const { t } = useTranslation('booking');
   const isEn = currentLang === 'en';
@@ -304,16 +306,34 @@ export default function BookingReview({
 
       {/* 3. Explicit Confirmation Checkbox & Final Submission Action */}
       <form onSubmit={handleSubmit} className="space-y-5">
+        {submissionError && (
+          <div
+            role="alert"
+            className="p-4 sm:p-5 rounded-2xl bg-red-50 border border-red-200 text-red-900 flex items-start gap-3 shadow-xs animate-in fade-in"
+          >
+            <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+            <div className="space-y-1">
+              <h4 className="text-sm font-semibold">
+                {t('common.error', 'Error')}
+              </h4>
+              <p className="text-xs sm:text-sm text-red-700 leading-relaxed">
+                {submissionError}
+              </p>
+            </div>
+          </div>
+        )}
+
         <Card className="p-4 sm:p-5 bg-ivory border border-sand-gold/40 shadow-xs space-y-3">
-          <label className="flex items-start gap-3 cursor-pointer select-none">
+          <label className={`flex items-start gap-3 select-none ${isSubmitting ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}>
             <input
               type="checkbox"
+              disabled={isSubmitting}
               checked={hasConfirmed}
               onChange={(e) => {
                 setHasConfirmed(e.target.checked);
                 if (e.target.checked) setConfirmationError('');
               }}
-              className="w-4 h-4 mt-0.5 rounded border-stone text-forest focus:ring-forest cursor-pointer"
+              className="w-4 h-4 mt-0.5 rounded border-stone text-forest focus:ring-forest cursor-pointer disabled:cursor-not-allowed"
             />
             <span className="text-xs sm:text-sm text-charcoal leading-relaxed font-medium">
               {t(
@@ -360,8 +380,14 @@ export default function BookingReview({
             variant="primary"
             size="lg"
             disabled={isSubmitting}
-            className="w-full sm:w-auto shadow-md hover:shadow-lg justify-center shrink-0"
-            rightIcon={<Send className="w-4 h-4" />}
+            className="w-full sm:w-auto shadow-md hover:shadow-lg justify-center shrink-0 cursor-pointer disabled:cursor-not-allowed"
+            rightIcon={
+              isSubmitting ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <Send className="w-4 h-4" />
+              )
+            }
           >
             {isSubmitting
               ? t('request.review.submittingBtn', 'Enviando solicitud...')

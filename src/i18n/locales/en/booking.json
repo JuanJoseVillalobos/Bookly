@@ -90,7 +90,9 @@
       "emailInvalid": "Please enter a valid email address (e.g. user@email.com).",
       "phoneRequired": "Phone number is required.",
       "phoneInvalid": "Please enter a valid phone number (at least 7 digits).",
-      "confirmationRequired": "You must confirm that the details are correct before proceeding."
+      "confirmationRequired": "You must confirm that the details are correct before proceeding.",
+      "persistenceFailed": "Could not register the request due to an issue with local storage. Please check available space and try again.",
+      "duplicateSubmission": "We have already received an identical request just now."
     },
     "review": {
       "stepBadge": "Step 2 of 2",

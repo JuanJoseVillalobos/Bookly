@@ -90,7 +90,9 @@
       "emailInvalid": "Por favor ingresa un correo electrónico válido (ej. usuario@correo.com).",
       "phoneRequired": "El número de teléfono es obligatorio.",
       "phoneInvalid": "Por favor ingresa un número de teléfono válido (mínimo 7 dígitos).",
-      "confirmationRequired": "Debes confirmar que los datos son correctos antes de continuar."
+      "confirmationRequired": "Debes confirmar que los datos son correctos antes de continuar.",
+      "persistenceFailed": "No se pudo registrar la solicitud debido a un inconveniente con el almacenamiento local. Por favor verifica el espacio e intenta nuevamente.",
+      "duplicateSubmission": "Ya hemos recibido una solicitud idéntica en los últimos instantes."
     },
     "review": {
       "stepBadge": "Paso 2 de 2",
